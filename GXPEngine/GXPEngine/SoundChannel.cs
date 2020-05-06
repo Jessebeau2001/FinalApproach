@@ -1,5 +1,4 @@
 ﻿using System;
-using GXPEngine.Core;
 
 namespace GXPEngine
 {
@@ -8,39 +7,30 @@ namespace GXPEngine
 	/// </summary>
 	public class SoundChannel
 	{
-		private uint _id = 0;
-        private SoundSystem _system;
-        private float _volume = 1f;
-        private bool _isMuted = false;
-
-		public uint ID {
-			get {
-				return _id;
-			}
-		}
-
-        public SoundChannel( uint id )
+		private int _id = 0;
+		
+		public SoundChannel( int id )
 		{
-            _system = GLContext.soundSystem;
-            _id = id;
-        }
-
-        /// <summary>
-        /// Gets or sets the channel frequency.
-        /// </summary>
-        /// <value>
-        /// The frequency. Defaults to the sound frequency. (Usually 44100Hz)
-        /// </value>
-        public float Frequency 
+			_id = id;
+		}
+		
+		/// <summary>
+		/// Gets or sets the channel frequency.
+		/// </summary>
+		/// <value>
+		/// The frequency. Defaults to the sound frequency. (Usually 44100Hz)
+		/// </value>
+		public float Frequency 
 		{
 			get 
 			{
-                float frequency = _system.GetChannelFrequency(_id);
+				float frequency;
+				FMOD.Channel_GetFrequency( _id, out frequency );
 				return frequency;
 			}
 			set
 			{
-                _system.SetChannelFrequency(_id, value);
+				FMOD.Channel_SetFrequency( _id, value );
 			}
 		}
 
@@ -54,20 +44,14 @@ namespace GXPEngine
 		{
 			get 
 			{
-				return _isMuted;
+				bool mute;
+				FMOD.Channel_GetMute( _id, out mute );
+				return mute;
 			}
 			set
 			{
-                _isMuted = value;
-                if (value)
-                {
-                    _system.SetChannelVolume(_id, 0f);
-                }
-                else
-                {
-                    _system.SetChannelVolume(_id, _volume);
-                }
-            }
+				FMOD.Channel_SetMute( _id, value );
+			}
 		}
 
 		/// <summary>
@@ -77,11 +61,13 @@ namespace GXPEngine
 		{
 			get 
 			{
-                return _system.GetChannelPan(_id);
+				float pan;
+				FMOD.Channel_GetPan( _id, out pan );
+				return pan;
 			}
 			set
 			{
-                _system.SetChannelPan(_id, value);
+				FMOD.Channel_SetPan( _id, value );
 			}
 		}		
 
@@ -95,11 +81,13 @@ namespace GXPEngine
 		{
 			get 
 			{
-                return _system.GetChannelPaused(_id);
+				bool paused;
+				FMOD.Channel_GetPaused( _id, out paused );
+				return paused;
 			}
 			set
 			{
-                _system.SetChannelPaused(_id, value);
+				FMOD.Channel_SetPaused( _id, value );
 			}
 		}
 
@@ -113,7 +101,9 @@ namespace GXPEngine
 		{
 			get 
 			{
-                return _system.ChannelIsPlaying(_id);
+				bool playing;
+				FMOD.Channel_IsPlaying( _id, out playing );
+				return playing;
 			}
 		}		
 		
@@ -122,7 +112,7 @@ namespace GXPEngine
 		/// </summary>
 		public void Stop()
 		{
-            _system.StopChannel(_id);
+			FMOD.Channel_Stop( _id );
 			_id = 0;
 		}
 	
@@ -136,15 +126,13 @@ namespace GXPEngine
 		{
 			get 
 			{
-                return _system.GetChannelVolume(_id);
+				float volume;
+				FMOD.Channel_GetVolume( _id, out volume );
+				return volume;
 			}
 			set
 			{
-                _volume = value;
-                if (!_isMuted)
-                {
-                    _system.SetChannelVolume(_id, value);
-                }
+				FMOD.Channel_SetVolume( _id, value );
 			}
 		}
 		

@@ -178,6 +178,8 @@ namespace GXPEngine
 		//------------------------------------------------------------------------------------------------------------------------
 		internal void Step ()
 		{
+			Sound.Step ();
+
 			if (OnBeforeStep != null)
 				OnBeforeStep ();
 			_updateManager.Step ();

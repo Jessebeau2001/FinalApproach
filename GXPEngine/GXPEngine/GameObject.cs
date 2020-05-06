@@ -355,14 +355,10 @@ namespace GXPEngine
 		/// <summary>
 		/// Returns a list of all children that belong to this object.
 		/// The function returns System.Collections.Generic.List<GameObject>.
-		/// (If safe=false, then the method is slightly faster, but modifying the list will break the engine!)
+		/// NOTE: Never change this list directly yourself!
 		/// </summary>
-		public List<GameObject> GetChildren(bool safe=true) {
-			if (safe) {
-				return new List<GameObject> (_children);
-			} else {
-				return _children;
-			}
+		public List<GameObject> GetChildren() {
+			return _children;
 		}
 		
 		//------------------------------------------------------------------------------------------------------------------------

@@ -400,6 +400,10 @@ namespace TiledMapParser
 		public float X;
 		[XmlAttribute("y")]
 		public float Y;
+		//----------------------------------- added this one myself (By Jesse Visscher)
+		[XmlAttribute("rotation")]
+		public float Rotation;
+		//-----------------------------------
 		[XmlElement("text")]
 		public Text textField;
 
