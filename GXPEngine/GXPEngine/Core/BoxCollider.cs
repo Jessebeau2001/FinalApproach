@@ -200,7 +200,7 @@ namespace GXPEngine.Core
 		// nx,ny: current normal (not necessarily normalized)
 		// dx,dy: body vector of body 1 that gives the max depth along this normal
 		// d: points of body 2
-		// vx,vy: relative velocity of body 2 w. resp. to body 1
+		// vx,vy: relative force of body 2 w. resp. to body 1
 		// TOI/TOE: time of impact/exit. Updated when we find better values along this normal.
 		//
 		// Returns true if the TOI is updated.
@@ -223,7 +223,7 @@ namespace GXPEngine.Core
 			t = ((d[3].x - cx) * nx + (d[3].y - cy) * ny) / dot;
 			minT = Math.Min(minT,t); maxT = Math.Max(maxT,t);
 
-			// relative velocity:
+			// relative force:
 			float vp = (vx*nx + vy*ny) / dot;
 
 			if (Mathf.Abs(vp)<0.0001f) {

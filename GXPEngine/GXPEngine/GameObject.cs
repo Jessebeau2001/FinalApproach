@@ -428,7 +428,7 @@ namespace GXPEngine
 			normal = new Vector2 ();
 			if (_collider == null || other._collider == null || parent==null)
 				return float.MaxValue;
-			// Compute world space velocity:
+			// Compute world space force:
 			//Vector2 p1 = parent.TransformPoint (vx, vy);
 			//Vector2 p0 = parent.TransformPoint (0, 0);
 			Vector2 worldVelocity=parent.TransformDirection(vx,vy);

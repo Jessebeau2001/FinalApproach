@@ -4,9 +4,11 @@ using GXPEngine;								// GXPEngine contains the engine
 
 public class MyGame : Game
 {
+	Stage stage;
 	public MyGame() : base(1920, 1080, false)
 	{
-
+		stage = new Stage();
+		AddChild(stage);
 	}
 
     void Update()
