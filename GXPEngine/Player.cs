@@ -17,9 +17,9 @@ namespace GXPEngine
 		public Vec2 velocity;
 
 		Vec2 _position;
-		float _speed = 22;
+		float _speed = 40;
 		float _controlTimer = 20;
-		float _controlTimerDefault = 60;
+		float _controlTimerDefault = 30;
 
 		public Player(float x, float y) : base()
 		{
@@ -44,7 +44,7 @@ namespace GXPEngine
 			y = _position.y;
 
 			force *= 0f;
-			velocity *= 0.80f;
+			velocity *= 0.65f;
 
 			_controlTimer--;
 		}
