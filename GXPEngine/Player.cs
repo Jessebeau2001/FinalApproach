@@ -23,13 +23,10 @@ namespace GXPEngine
 
 		public Player(float x, float y) : base("textures/alphaPlayer.png", false, true)
 		{
-			//Sprite playerSprite = new Sprite("textures/alphaPlayer.png", false, false);
-			//playerSprite.SetOrigin(playerSprite.width / 2, playerSprite.height / 2);
-			//AddChild(playerSprite);		
-			
 			EasyDraw col = new EasyDraw(width, height, false);
 			col.ShapeAlign(CenterMode.Min, CenterMode.Min);
 			col.NoFill();
+			col.Stroke(245, 66, 66);
 			col.Rect(0, 0, col.width - 1, col.height - 1);
 			AddChild(col);
 		}
@@ -50,11 +47,15 @@ namespace GXPEngine
 
 		void OnCollision(GameObject other)
 		{
+			if (other is Pickup) {
+				other.LateDestroy();
+				return;
+			}
+
 			var ColInfo = collider.GetCollisionInfo(other.collider);
 			_position += ColInfo.normal * ColInfo.penetrationDepth;
 
 			Console.WriteLine("Collided with GameObject: " + other.name);
-			//Console.WriteLine("force : " + force + " velocity: " + velocity);
 		}
 
 		void Control()

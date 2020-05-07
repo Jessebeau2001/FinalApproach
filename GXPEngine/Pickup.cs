@@ -13,10 +13,9 @@ namespace GXPEngine
 			this.y = y;
 		}
 
-		void OnCollision()
+		void PickUp()
 		{
 			LateDestroy();
-			Console.WriteLine("Destroyed this pickupable");
 		}
 	}
 }
