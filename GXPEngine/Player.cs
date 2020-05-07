@@ -19,6 +19,8 @@ namespace GXPEngine
 		Vec2 _position;
 		float _speed = 1;
 
+		CollisionManager colMan = new CollisionManager();
+
 		public Player(float x, float y) : base("textures/alphaPlayer.png", false, true)
 		{
 			//Sprite playerSprite = new Sprite("textures/alphaPlayer.png", false, false);
@@ -48,10 +50,11 @@ namespace GXPEngine
 
 		void OnCollision(GameObject other)
 		{
-			Console.WriteLine("Collision with" + other.name);
 			var ColInfo = collider.GetCollisionInfo(other.collider);
-			_position.x += ColInfo.normal.x * ColInfo.penetrationDepth;
-			_position.y += ColInfo.normal.y * ColInfo.penetrationDepth;
+			_position += ColInfo.normal * ColInfo.penetrationDepth;
+
+			Console.WriteLine("Collided with GameObject: " + other.name);
+			//Console.WriteLine("force : " + force + " velocity: " + velocity);
 		}
 
 		void Control()

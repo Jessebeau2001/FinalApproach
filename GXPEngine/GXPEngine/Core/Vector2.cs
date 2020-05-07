@@ -16,6 +16,11 @@ namespace GXPEngine.Core
 		override public string ToString() {
 			return "[Vector2 " + x + ", " + y + "]";
 		}
+
+		public static Vector2 operator* (Vector2 left, float multiplier)
+		{
+			return new Vector2(left.x * multiplier, left.y * multiplier);
+		}
 	}
 }
 

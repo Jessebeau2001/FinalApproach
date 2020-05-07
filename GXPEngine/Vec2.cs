@@ -40,7 +40,7 @@ public struct Vec2
 
 	public static Vec2 operator+ (Vec2 left, Vector2 right)
 	{
-		return new Vec2(left.x - right.x, left.y - right.y);
+		return new Vec2(left.x + right.x, left.y + right.y);
 	}
 
 	public float Length()

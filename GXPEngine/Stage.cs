@@ -25,6 +25,9 @@ namespace GXPEngine
 			col.y = 700;
 
 			AddChild(col);
+
+			Pickup item = new Pickup(900, 900, "textures/grapes.png");
+			AddChild(item);
 		}
 
 		void Update()

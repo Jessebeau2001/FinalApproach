@@ -70,6 +70,7 @@
     <Compile Include="GXPEngine\AddOns\Window.cs" />
     <Compile Include="GXPEngine\AddOns\EasyDraw.cs" />
     <Compile Include="GXPEngine\Core\Collision.cs" />
+    <Compile Include="Pickup.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Stage.cs" />
     <Compile Include="Vec2.cs" />
