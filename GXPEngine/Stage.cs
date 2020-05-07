@@ -14,6 +14,9 @@ namespace GXPEngine
 			AddChild(background);
 			Player player = new Player(100, 100);
 			AddChild(player);
+			NPC testNPC = new NPC(700, 400);
+			testNPC.SetMovementPattern(2);
+			AddChild(testNPC);
 
 			col = new EasyDraw(40, 60, true);
 			col.NoFill();
