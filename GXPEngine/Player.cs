@@ -5,7 +5,7 @@ using System.Text;
 
 namespace GXPEngine
 {
-	class Player : Sprite
+	class Player : EasyDraw
 	{
 		public Vec2 position {
 			get {
@@ -19,16 +19,16 @@ namespace GXPEngine
 		Vec2 _position;
 		float _speed = 1;
 
-		CollisionManager colMan = new CollisionManager();
-
-		public Player(float x, float y) : base("textures/alphaPlayer.png", false, true)
+		public Player(float x, float y) : base(97, 20)
 		{
-			EasyDraw col = new EasyDraw(width, height, false);
-			col.ShapeAlign(CenterMode.Min, CenterMode.Min);
-			col.NoFill();
-			col.Stroke(245, 66, 66);
-			col.Rect(0, 0, col.width - 1, col.height - 1);
-			AddChild(col);
+			Sprite playerSprite = new Sprite("textures/alphaPlayer.png", false, false);
+			playerSprite.y -= playerSprite.height - height;
+			AddChild(playerSprite);
+			
+			ShapeAlign(CenterMode.Min, CenterMode.Min);
+			NoFill();
+			Stroke(245, 66, 66);
+			Rect(0, 0, width - 1, height - 1);
 		}
 
 		void Update()

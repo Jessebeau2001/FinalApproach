@@ -6,6 +6,7 @@ public class MyGame : Game
 {
 	Stage stage;
 	public MyGame() : base(1920, 1080, false)
+	//public MyGame() : base(1920, 1080, false, pRealWidth: 854, pRealHeight: 480)
 	{
 		stage = new Stage();
 		AddChild(stage);
