@@ -1,5 +1,6 @@
 ﻿using System;
 using GXPEngine;
+using GXPEngine.Core;
 
 public struct Vec2
 {
@@ -35,6 +36,11 @@ public struct Vec2
 	public static Vec2 operator* (float multiplier, Vec2 right)
 	{
 		return new Vec2(right.x * multiplier, right.y * multiplier);
+	}
+
+	public static Vec2 operator+ (Vec2 left, Vector2 right)
+	{
+		return new Vec2(left.x - right.x, left.y - right.y);
 	}
 
 	public float Length()

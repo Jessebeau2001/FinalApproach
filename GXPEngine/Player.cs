@@ -5,7 +5,7 @@ using System.Text;
 
 namespace GXPEngine
 {
-	class Player : Pivot
+	class Player : Sprite
 	{
 		public Vec2 position {
 			get {
@@ -19,13 +19,17 @@ namespace GXPEngine
 		Vec2 _position;
 		float _speed = 1;
 
-		public Player(float x, float y) : base()
+		public Player(float x, float y) : base("textures/alphaPlayer.png", false, true)
 		{
-			Sprite playerSprite = new Sprite("textures/alphaPlayer.png", false);
-			playerSprite.SetOrigin(playerSprite.width / 2, playerSprite.height / 2);
-			AddChild(playerSprite);
-
-			playerSprite.scale = 1;
+			//Sprite playerSprite = new Sprite("textures/alphaPlayer.png", false, false);
+			//playerSprite.SetOrigin(playerSprite.width / 2, playerSprite.height / 2);
+			//AddChild(playerSprite);		
+			
+			EasyDraw col = new EasyDraw(width, height, false);
+			col.ShapeAlign(CenterMode.Min, CenterMode.Min);
+			col.NoFill();
+			col.Rect(0, 0, col.width - 1, col.height - 1);
+			AddChild(col);
 		}
 
 		void Update()
@@ -40,6 +44,14 @@ namespace GXPEngine
 
 			force *= 0f;
 			velocity *= 0.9f;
+		}
+
+		void OnCollision(GameObject other)
+		{
+			Console.WriteLine("Collision with" + other.name);
+			var ColInfo = collider.GetCollisionInfo(other.collider);
+			_position.x += ColInfo.normal.x * ColInfo.penetrationDepth;
+			_position.y += ColInfo.normal.y * ColInfo.penetrationDepth;
 		}
 
 		void Control()
@@ -58,7 +70,6 @@ namespace GXPEngine
 
 			force.Normalize();
 			force *= _speed;
-			Console.WriteLine(Time.deltaTime);
 		}
 	}
 }
