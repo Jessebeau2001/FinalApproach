@@ -17,7 +17,9 @@ namespace GXPEngine
 		public Vec2 velocity;
 
 		Vec2 _position;
-		float _speed = 1;
+		float _speed = 22;
+		float _controlTimer = 20;
+		float _controlTimerDefault = 80;
 
 		public Player(float x, float y) : base()
 		{
@@ -30,7 +32,10 @@ namespace GXPEngine
 
 		void Update()
 		{
-			Control();
+			if (_controlTimer < 0)
+			{
+				Control();
+			}
 			velocity += force;
 			velocity *= Time.deltaTime / 10;
 			_position += velocity;
@@ -39,22 +44,36 @@ namespace GXPEngine
 			y = _position.y;
 
 			force *= 0f;
-			velocity *= 0.9f;
+			velocity *= 0.80f;
+
+			_controlTimer--;
 		}
 
 		void Control()
 		{
 			if (Input.GetKey(Key.W))
+			{
 				force.y -= 1;
+				_controlTimer = _controlTimerDefault;
+			}
 
-			if (Input.GetKey(Key.S))
+			else if (Input.GetKey(Key.S))
+			{
 				force.y += 1;
+				_controlTimer = _controlTimerDefault;
+			}
 
-			if (Input.GetKey(Key.A))
+			else if (Input.GetKey(Key.A))
+			{
 				force.x -= 1;
+				_controlTimer = _controlTimerDefault;
+			}
 
-			if (Input.GetKey(Key.D))
+			else if (Input.GetKey(Key.D))
+			{
 				force.x += 1;
+				_controlTimer = _controlTimerDefault;
+			}
 
 			force.Normalize();
 			force *= _speed;
