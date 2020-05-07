@@ -15,7 +15,7 @@ namespace GXPEngine
 			Player player = new Player(100, 100);
 			AddChild(player);
 			NPC testNPC = new NPC(700, 400);
-			testNPC.SetMovementPattern(2);
+			testNPC.SetMovementPattern("LR"); //LR = LeftRight, UD = UpDown, SQ = Square
 			AddChild(testNPC);
 
 			col = new EasyDraw(40, 60, true);

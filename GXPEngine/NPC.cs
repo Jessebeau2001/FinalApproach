@@ -9,7 +9,7 @@ namespace GXPEngine
 {
     class NPC : Sprite
     {
-        int _mpNumber;
+        string _movePattern;
 
         float _speed = 5;
         float _moveTime;
@@ -24,14 +24,19 @@ namespace GXPEngine
 
         public void Update()
         {
-            if(GetMovementPattern() == 1)
+            switch (GetMovementPattern())
             {
-                movementPatternLeftRight();
+                case "LR":
+                    movementPatternLeftRight();
+                    break;
+                case "UD":
+                    movementPatternUpDown();
+                    break;
+                case "SQ":
+                    movementPatternSquare();
+                    break;
             }
-            else if(GetMovementPattern() == 2)
-            {
-                movementPatternUpDown();
-            }
+        
 
             if(_moveTime <= 0)
             {
@@ -41,14 +46,14 @@ namespace GXPEngine
         }
 
 
-        public int GetMovementPattern()
+        public string GetMovementPattern()
         {
-            return _mpNumber;
+            return _movePattern;
         }
 
-        public void SetMovementPattern(int newMPNumber)
+        public void SetMovementPattern(string newMPNumber)
         {
-            _mpNumber = newMPNumber;
+            _movePattern = newMPNumber;
         }
 
         private void movementPatternLeftRight()
@@ -97,6 +102,21 @@ namespace GXPEngine
                     Move(0, -_speed);
                     break;
             }
+        }private void movementPatternSquare()
+        {
+            if(_moveTime <= _moveTimeMax && _moveTime + 1 >= (_moveTimeMax/4) * 3)
+                    Move(_speed, 0); //right
+
+            else if(_moveTime <= (_moveTimeMax/4) * 3 && _moveTime + 1 >= _moveTimeMax/2)
+                    Move(0, -_speed); //up
+
+            else if(_moveTime <= _moveTimeMax/2 && _moveTime + 1 >= _moveTimeMax/4)
+                    Move(-_speed, 0); //left
+
+            else if(_moveTime <= _moveTimeMax/4 && _moveTime >= 0)
+                    Move(0, _speed); //down
+
+            
         }
     }
 }
