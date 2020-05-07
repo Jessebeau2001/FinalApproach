@@ -19,7 +19,7 @@ namespace GXPEngine
 		Vec2 _position;
 		float _speed = 22;
 		float _controlTimer = 20;
-		float _controlTimerDefault = 80;
+		float _controlTimerDefault = 60;
 
 		public Player(float x, float y) : base()
 		{
