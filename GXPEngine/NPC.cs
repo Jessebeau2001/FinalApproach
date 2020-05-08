@@ -64,7 +64,7 @@ namespace GXPEngine
                 c = 1;
             }
 
-            if(_moveTime <= _moveTimeMax/2)
+            if(_moveTime < _moveTimeMax/2)
             {
                 c = -c;
             }
@@ -88,7 +88,7 @@ namespace GXPEngine
                 c = 1;
             }
 
-            if (_moveTime <= _moveTimeMax / 2)
+            if (_moveTime < _moveTimeMax / 2)
             {
                 c = -c;
             }
