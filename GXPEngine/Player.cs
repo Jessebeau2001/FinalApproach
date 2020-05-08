@@ -21,9 +21,11 @@ namespace GXPEngine
 
 		Inventory playerInv = new Inventory(5);
 
-		public Player(float x, float y) : base(97, 20)
+		public Player(float x, float y) : base(100, 20)
 		{
-			Sprite playerSprite = new Sprite("textures/alphaPlayer.png", false, false);
+			Sprite playerSprite = new Sprite("textures/bigAssFuckImageSizerVersion.png", false, false);
+			float scaling = (width * 1f) / (playerSprite.width * 1f);		//calculating and setting a scaling so
+			playerSprite.scale = (width * 1f) / (playerSprite.width * 1f);  //that the player width will always be 100 pixels
 			playerSprite.y -= playerSprite.height - height;
 			AddChild(playerSprite);
 			
