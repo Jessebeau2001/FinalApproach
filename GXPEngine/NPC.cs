@@ -11,9 +11,9 @@ namespace GXPEngine
     {
         string _movePattern;
 
-        float _speed = 5;
+        float _speed = 3;
         float _moveTime;
-        float _moveTimeMax = 100;
+        float _moveTimeMax = 200;
 
         public NPC(float x, float y) : base(97, 28)
         {
@@ -28,18 +28,7 @@ namespace GXPEngine
 
         public void Update()
         {
-            switch (GetMovementPattern())
-            {
-                case "LR":
-                    movementPatternLeftRight();
-                    break;
-                case "UD":
-                    movementPatternUpDown();
-                    break;
-                case "SQ":
-                    movementPatternSquare();
-                    break;
-            }
+            determineMovementPattern();
         
 
             if(_moveTime <= 0)
@@ -58,6 +47,22 @@ namespace GXPEngine
         public void SetMovementPattern(string newMPNumber)
         {
             _movePattern = newMPNumber;
+        }
+
+        private void determineMovementPattern()
+        {
+            switch (GetMovementPattern())
+            {
+                case "LR":
+                    movementPatternLeftRight();
+                    break;
+                case "UD":
+                    movementPatternUpDown();
+                    break;
+                case "SQ":
+                    movementPatternSquare();
+                    break;
+            }
         }
 
         private void movementPatternLeftRight()
