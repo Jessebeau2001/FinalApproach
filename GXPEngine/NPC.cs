@@ -7,7 +7,7 @@ using System.Text;
 
 namespace GXPEngine
 {
-    class NPC : Sprite
+    class NPC : EasyDraw
     {
         string _movePattern;
 
@@ -15,8 +15,12 @@ namespace GXPEngine
         float _moveTime;
         float _moveTimeMax = 100;
 
-        public NPC(float x, float y) : base("textures/silhoutte.png")
+        public NPC(float x, float y) : base(97, 28)
         {
+            Sprite NPCSprite = new Sprite("textures/silhoutte.png", false, false);
+            NPCSprite.y -= NPCSprite.height - height;
+            AddChild(NPCSprite);
+
             this.x = x;
             this.y = y;
             _moveTime = _moveTimeMax;
