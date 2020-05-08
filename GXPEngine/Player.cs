@@ -15,17 +15,18 @@ namespace GXPEngine
 
 		public Vec2 force;
 		public Vec2 velocity;
+		private Vec2 _position;
 
-		Vec2 _position;
 		float _speed = 1;
 
+		string animState = "";
+
 		Inventory playerInv = new Inventory(5);
+		AnimationSprite playerSprite = new AnimationSprite("textures/notAnimalCrossing.png", 3, 1, addCollider: false);
 
 		public Player(float x, float y) : base(100, 20)
 		{
-			Sprite playerSprite = new Sprite("textures/bigAssFuckImageSizerVersion.png", false, false);
-			float scaling = (width * 1f) / (playerSprite.width * 1f);		//calculating and setting a scaling so
-			playerSprite.scale = (width * 1f) / (playerSprite.width * 1f);  //that the player width will always be 100 pixels
+			playerSprite.scale = (width * 1f) / (playerSprite.width * 1f);  //calculating and setting a scaling so that the player width will always be 100 pixels
 			playerSprite.y -= playerSprite.height - height;
 			AddChild(playerSprite);
 			
@@ -65,25 +66,60 @@ namespace GXPEngine
 			Console.WriteLine("Collided with GameObject: " + other.name);
 		}
 
-		void Control()
+		private void Control()
 		{
-			if (Input.GetKey(Key.W))
+			if (Input.GetKey(Key.W)) {
 				force.y -= 1;
-
-			if (Input.GetKey(Key.S))
+				SetState("^");
+			}
+				
+			if (Input.GetKey(Key.S)) { 
 				force.y += 1;
+				SetState("");
+			}
 
-			if (Input.GetKey(Key.A))
+			if (Input.GetKey(Key.A)) {
 				force.x -= 1;
+				SetState("<");
+			}
 
-			if (Input.GetKey(Key.D))
+			if (Input.GetKey(Key.D)) {
 				force.x += 1;
+				SetState(">");
+			}
 
 			if (Input.GetKeyDown(Key.SPACE))
 				playerInv.PrintContents();
 
 			force.Normalize();
 			force *= _speed;
+
+			AnimationHandeler();
+		}
+
+		public void SetState(string state)
+		{
+			animState = state;
+		}
+
+		private void AnimationHandeler()
+		{
+			switch (animState) {
+				case "":
+					playerSprite.SetFrame(0);
+					break;
+				case "<":
+					playerSprite.SetFrame(2);
+					playerSprite.Mirror(false, false);
+					break;
+				case ">":
+					playerSprite.SetFrame(2);
+					playerSprite.Mirror(true, false);
+					break;
+				case "^":
+					playerSprite.SetFrame(1);
+					break;
+			}
 		}
 	}
 }
