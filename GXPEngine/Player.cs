@@ -19,6 +19,8 @@ namespace GXPEngine
 		Vec2 _position;
 		float _speed = 1;
 
+		Inventory playerInv = new Inventory(5);
+
 		public Player(float x, float y) : base(97, 20)
 		{
 			Sprite playerSprite = new Sprite("textures/alphaPlayer.png", false, false);
@@ -29,6 +31,8 @@ namespace GXPEngine
 			NoFill();
 			Stroke(245, 66, 66);
 			Rect(0, 0, width - 1, height - 1);
+
+			AddChild(playerInv);
 		}
 
 		void Update()
@@ -48,6 +52,7 @@ namespace GXPEngine
 		void OnCollision(GameObject other)
 		{
 			if (other is Pickup) {
+				playerInv.PickUp("grapes");
 				other.LateDestroy();
 				return;
 			}
@@ -71,6 +76,9 @@ namespace GXPEngine
 
 			if (Input.GetKey(Key.D))
 				force.x += 1;
+
+			if (Input.GetKeyDown(Key.SPACE))
+				playerInv.PrintContents();
 
 			force.Normalize();
 			force *= _speed;
