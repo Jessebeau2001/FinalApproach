@@ -340,6 +340,8 @@ namespace TiledMapParser
 		public string Name;
 		[XmlElement("object")]
 		public TiledObject[] Objects;
+		[XmlAttribute("id")] //added this one cuz why not
+		public int id;
 
 		override public string ToString() {
 			string output = "Object group: Name: " + Name + " Objects:\n";

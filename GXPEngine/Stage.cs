@@ -8,9 +8,11 @@ namespace GXPEngine
 		private string mapPath = "maps/test.tmx";
 
 		EasyDraw col;
+
+		Pickup item;
 		public Stage() : base()
 		{
-			Sprite background = new Sprite("textures/mockupLevel.png", false, false);
+			Sprite background = new Sprite("textures/mockupLevel_empty.png", false, false);
 			AddChild(background);
 			Player player = new Player(100, 100);
 			AddChild(player);
@@ -19,16 +21,12 @@ namespace GXPEngine
 			testNPC.SetMovementPattern("LR"); //LR = LeftRight, UD = UpDown, SQ = Square
 			AddChild(testNPC);
 
-			Pickup item = new Pickup(900, 900, "textures/grapes.png");
-			AddChild(item);
-
 			Map leveldata = MapParser.ReadMap(mapPath);
 			SpawnColliders(leveldata, true);
 		}
 
-		void Update()
+		void Spawnitems()
 		{
-
 
 		}
 
@@ -49,15 +47,30 @@ namespace GXPEngine
 		void SpawnColliders(Map leveldata, bool showBounds)
 		{
 			if (leveldata.ObjectGroups == null || leveldata.ObjectGroups.Length == 0) return;
-			ObjectGroup colliderGroup = leveldata.ObjectGroups[0];
-			if (colliderGroup.Objects == null || colliderGroup.Objects.Length == 0) return;
 
-			foreach (TiledObject obj in colliderGroup.Objects)
+			foreach (ObjectGroup group in leveldata.ObjectGroups)
 			{
-				Console.WriteLine($"{ obj }");
-				CreateBoundingBox(Mathf.Round(obj.X), Mathf.Round(obj.Y), Mathf.Round(obj.Width), Mathf.Round(obj.Height), true, showBounds);
+				Console.WriteLine("Loading object group '" + group.Name + "' with group ID '" + group.id + "'");
+				if (group.Name == "WallColliders")
+				{
+					foreach (TiledObject obj in group.Objects)
+					{
+						if (group.Objects == null || group.Objects.Length == 0) return;
+						Console.WriteLine($"{ obj }");
+						CreateBoundingBox(Mathf.Round(obj.X), Mathf.Round(obj.Y), Mathf.Round(obj.Width), Mathf.Round(obj.Height), true, showBounds);
+					}
+				}
+				if (group.Name == "Items")
+				{
+					foreach (TiledObject obj in group.Objects)
+					{
+						if (group.Objects == null || group.Objects.Length == 0) return;
+
+						item = new Pickup(Mathf.Round(obj.X), Mathf.Round(obj.Y), obj.GID);
+						AddChild(item);
+					}
+				}
 			}
 		}
-
 	}
 }

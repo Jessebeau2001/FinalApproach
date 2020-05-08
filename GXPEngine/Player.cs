@@ -18,16 +18,23 @@ namespace GXPEngine
 		private Vec2 _position;
 
 		float _speed = 1;
+		float scaleFactor;
 
 		string animState = "";
+
+		int timer = 1000;
+
+		bool squish = false;
 
 		Inventory playerInv = new Inventory(5);
 		AnimationSprite playerSprite = new AnimationSprite("textures/notAnimalCrossing.png", 3, 1, addCollider: false);
 
 		public Player(float x, float y) : base(100, 20)
 		{
-			playerSprite.scale = (width * 1f) / (playerSprite.width * 1f);  //calculating and setting a scaling so that the player width will always be 100 pixels
-			playerSprite.y -= playerSprite.height - height;
+			playerSprite.SetOrigin(0, playerSprite.height);
+			scaleFactor = (width * 1f) / (playerSprite.width * 1f);
+			playerSprite.scale = scaleFactor;  //calculating and setting a scaling so that the player width will always be 100 pixels
+			playerSprite.y += height;
 			AddChild(playerSprite);
 			
 			ShapeAlign(CenterMode.Min, CenterMode.Min);
@@ -50,12 +57,24 @@ namespace GXPEngine
 
 			force *= 0f;
 			velocity *= 0.9f;
+
+			timer -= Time.deltaTime;
+			if (timer <= 0 )
+			{
+				timer += 1000;
+				if (squish)
+					playerSprite.scaleY *= .98f;
+				else
+					playerSprite.scaleY = scaleFactor;
+			
+				squish = !squish;
+			}
 		}
 
 		void OnCollision(GameObject other)
 		{
 			if (other is Pickup) {
-				playerInv.PickUp("grapes");
+				playerInv.PickUp((other as Pickup).GetItemName());
 				other.LateDestroy();
 				return;
 			}
