@@ -34,6 +34,10 @@ namespace GXPEngine
 			this.gid = gid;
 			switch (gid)
 			{
+				default:
+					texturePath = "textures/unknown.png";
+					itemName = "Unkown";
+					break;
 				case 1:
 					texturePath = "textures/cereal.png";
 					itemName = "Cereal";

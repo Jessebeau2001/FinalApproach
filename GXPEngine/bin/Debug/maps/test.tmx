@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-down" width="28" height="32" tilewidth="16" tileheight="16" infinite="1" nextlayerid="5" nextobjectid="20">
+<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-down" width="28" height="32" tilewidth="16" tileheight="16" infinite="1" nextlayerid="5" nextobjectid="23">
  <tileset firstgid="1" source="testSet.tsx"/>
  <imagelayer id="3" name="background">
   <image source="../textures/mockupLevel_empty.png" width="1920" height="1080"/>
@@ -17,7 +17,10 @@
  </objectgroup>
  <objectgroup id="4" name="Items">
   <object id="17" gid="2" x="197.333" y="896.667" width="72" height="92"/>
-  <object id="18" gid="1" x="1259.33" y="380.333" width="77" height="90"/>
+  <object id="18" gid="1" x="1282" y="340.333" width="77" height="90"/>
   <object id="19" gid="2" x="1241.33" y="972.667" width="72" height="92"/>
+  <object id="20" gid="5" x="963.333" y="813.333" width="96" height="196"/>
+  <object id="21" gid="3" x="677.333" y="561.667" width="452" height="242"/>
+  <object id="22" gid="3" x="570" y="1018.33" width="452" height="242"/>
  </objectgroup>
 </map>
