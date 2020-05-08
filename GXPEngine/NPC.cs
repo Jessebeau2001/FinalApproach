@@ -7,16 +7,20 @@ using System.Text;
 
 namespace GXPEngine
 {
-    class NPC : Sprite
+    class NPC : EasyDraw
     {
         string _movePattern;
 
-        float _speed = 5;
+        float _speed = 3;
         float _moveTime;
-        float _moveTimeMax = 100;
+        float _moveTimeMax = 200;
 
-        public NPC(float x, float y) : base("textures/silhoutte.png")
+        public NPC(float x, float y) : base(97, 28)
         {
+            Sprite NPCSprite = new Sprite("textures/silhoutte.png", false, false);
+            NPCSprite.y -= NPCSprite.height - height;
+            AddChild(NPCSprite);
+
             this.x = x;
             this.y = y;
             _moveTime = _moveTimeMax;
@@ -24,18 +28,7 @@ namespace GXPEngine
 
         public void Update()
         {
-            switch (GetMovementPattern())
-            {
-                case "LR":
-                    movementPatternLeftRight();
-                    break;
-                case "UD":
-                    movementPatternUpDown();
-                    break;
-                case "SQ":
-                    movementPatternSquare();
-                    break;
-            }
+            determineMovementPattern();
         
 
             if(_moveTime <= 0)
@@ -56,6 +49,22 @@ namespace GXPEngine
             _movePattern = newMPNumber;
         }
 
+        private void determineMovementPattern()
+        {
+            switch (GetMovementPattern())
+            {
+                case "LR":
+                    movementPatternLeftRight();
+                    break;
+                case "UD":
+                    movementPatternUpDown();
+                    break;
+                case "SQ":
+                    movementPatternSquare();
+                    break;
+            }
+        }
+
         private void movementPatternLeftRight()
         {
             int c = 0;
@@ -64,7 +73,7 @@ namespace GXPEngine
                 c = 1;
             }
 
-            if(_moveTime <= _moveTimeMax/2)
+            if(_moveTime < _moveTimeMax/2)
             {
                 c = -c;
             }
@@ -88,7 +97,7 @@ namespace GXPEngine
                 c = 1;
             }
 
-            if (_moveTime <= _moveTimeMax / 2)
+            if (_moveTime < _moveTimeMax / 2)
             {
                 c = -c;
             }
