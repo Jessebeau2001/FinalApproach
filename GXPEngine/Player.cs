@@ -50,7 +50,7 @@ namespace GXPEngine
 			Control();
 			velocity += force;
 			velocity *= Time.deltaTime / 10;
-			Console.WriteLine("Velocity = " + velocity);
+			//Console.WriteLine("Velocity = " + velocity);
 			_position += velocity;
 
 			x = _position.x;
@@ -109,7 +109,8 @@ namespace GXPEngine
 			}
 
 			if (Input.GetKeyDown(Key.SPACE))
-				playerInv.PrintContents();
+				Console.WriteLine(playerInv);
+				//playerInv.PrintContents();
 
 			force.Normalize();
 			force *= _speed;

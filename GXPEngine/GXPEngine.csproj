@@ -76,6 +76,7 @@
     <Compile Include="NPC.cs" />
     <Compile Include="Pickup.cs" />
     <Compile Include="Player.cs" />
+    <Compile Include="ShopList.cs" />
     <Compile Include="Stage.cs" />
     <Compile Include="Vec2.cs" />
   </ItemGroup>

@@ -1,5 +1,4 @@
 ﻿using System;
-
 namespace GXPEngine
 {
 	class Inventory : Pivot
@@ -30,18 +29,23 @@ namespace GXPEngine
 			}
 		}
 
+		public override string ToString()
+		{
+			string contents = "";
+			for (int i = 0; i < items.Length; i++)
+				contents += String.Format(@"Slot {0}: '{1}'" + Environment.NewLine, i, items[i]);
+			return contents;
+		}
+
 		public void PrintContents()
 		{
 			for (int i = 0; i < items.Length; i++)
 				Console.WriteLine("Item slot " + i + " : '" + items[i] + "'");
 		}
 
-		virtual public int invSize
+		public int invSize
 		{
-			get
-			{
-				return size;
-			}
+			get { return size; }
 		}
 	}
 }
