@@ -31,5 +31,13 @@ namespace GXPEngine
             textContainer.Fill(0, 0, 0);
             textContainer.Text(text, textContainer.width / 2, textContainer.height / 2);
         }
+
+        virtual public float height
+        {
+            get
+            {
+                return ElementTexture.height;
+            }
+        }
     }
 }

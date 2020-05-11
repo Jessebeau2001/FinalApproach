@@ -35,5 +35,13 @@ namespace GXPEngine
 			for (int i = 0; i < items.Length; i++)
 				Console.WriteLine("Item slot " + i + " : '" + items[i] + "'");
 		}
+
+		virtual public int invSize
+		{
+			get
+			{
+				return size;
+			}
+		}
 	}
 }
