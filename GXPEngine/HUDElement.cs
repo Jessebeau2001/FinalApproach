@@ -19,7 +19,7 @@ namespace GXPEngine
             _listObject = item;
         }
 
-        public HUDElement(float x, float y, string text) : base("")
+        public HUDElement(string text, float x, float y) : base("")
         {
             _listText.TextAlign(CenterMode.Min, CenterMode.Min);
 

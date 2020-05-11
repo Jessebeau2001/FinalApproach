@@ -10,12 +10,12 @@ namespace GXPEngine
         HUDElement _listObject;
         HUDElement _listText;
 
-        public HUDOverlay(Inventory InvRef) //Reference to where the items are read from
+        public HUDOverlay(Player player)
         {
-            _listObject = new HUDElement(0, 0, "/texture/Onion.png");
-            AddChild(_listObject);
+            //_listObject = new HUDElement(0, 0);
+            //AddChild(_listObject);
 
-            _listText = new HUDElement(0, 0, "Onion");
+            _listText = new HUDElement("Onion", 0, 0);
             AddChild(_listText);
         }
 

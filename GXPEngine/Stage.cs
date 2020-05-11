@@ -23,11 +23,19 @@ namespace GXPEngine
 
 			Map leveldata = MapParser.ReadMap(mapPath);
 			SpawnColliders(leveldata, true);
+
+			SpawnHUD(player);
 		}
 
 		void Spawnitems()
 		{
 
+		}
+
+		void SpawnHUD(Player player)
+		{
+			HUDOverlay hud = new HUDOverlay(player);
+			AddChild(hud);
 		}
 
 		void CreateBoundingBox(int x, int y, int width, int height, bool addCollider, bool showBounds)
