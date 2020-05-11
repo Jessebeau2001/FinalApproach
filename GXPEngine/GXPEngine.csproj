@@ -36,6 +36,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HUDElement.cs" />
+    <Compile Include="HUDOverlay.cs" />
     <Compile Include="Inventory.cs" />
     <Compile Include="MyGame.cs" />
     <Compile Include="GXPEngine\Canvas.cs" />
