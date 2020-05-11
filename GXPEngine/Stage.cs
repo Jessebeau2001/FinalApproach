@@ -24,7 +24,7 @@ namespace GXPEngine
 			Map leveldata = MapParser.ReadMap(mapPath);
 			SpawnColliders(leveldata, true);
 
-			SpawnHUD(player);
+			//SpawnHUD(player);
 		}
 
 		void Spawnitems()
