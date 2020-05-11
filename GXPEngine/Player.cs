@@ -49,7 +49,7 @@ namespace GXPEngine
 		{
 			Control();
 			velocity += force;
-			velocity *= Time.deltaTime / 10;
+			//velocity *= Time.deltaTime / 10;
 			_position += velocity;
 
 			x = _position.x;
