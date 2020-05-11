@@ -5,10 +5,11 @@ namespace GXPEngine
 	class Inventory : Pivot
 	{
 		string[] items;
+		int size;
 		public Inventory(int size)
 		{
 			items = new string[size];
-			items[0] = "TestItem";
+			this.size = size;
 		}
 
 		void Update()

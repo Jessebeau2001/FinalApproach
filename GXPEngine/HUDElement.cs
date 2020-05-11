@@ -5,32 +5,31 @@ using System.Text;
 
 namespace GXPEngine
 {
-    class HUDElement : Sprite
+    class HUDElement : Pivot
     {
-        float _width;       //Non class-bound width
-        float _height;      //and height
-        Sprite _listObject; //For pictures to overlay over the HUD
-        EasyDraw _listText; //For text to overlay over the HUD
+        Sprite ElementTexture; //For pictures to overlay over the HUD
+        EasyDraw textContainer; //For text to overlay over the HUD
 
-        public HUDElement(float x, float y, Sprite item) : base("")
+        public HUDElement(float x, float y, string texturePath, string UIText = null)
         {
             this.x = x;
             this.y = y;
-            _listObject = item;
+            ElementTexture = new Sprite(texturePath, false, false);
+            AddChild(ElementTexture);
+
+            textContainer = new EasyDraw(ElementTexture.width, ElementTexture.height, false);
+            AddChild(textContainer);
+
+            InititalizeText(UIText);
         }
 
-        public HUDElement(string text, float x, float y) : base("")
+        void InititalizeText(string text)
         {
-            _listText.TextAlign(CenterMode.Min, CenterMode.Min);
+            if (text == null) return;
 
-            _listText.Clear(0);
-
-            _listText.Text(text, x, y);
-        }
-
-        public void Update()
-        {
-
+            textContainer.TextAlign(CenterMode.Center, CenterMode.Center);
+            textContainer.Fill(0, 0, 0);
+            textContainer.Text(text, textContainer.width / 2, textContainer.height / 2);
         }
     }
 }

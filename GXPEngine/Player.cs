@@ -26,7 +26,7 @@ namespace GXPEngine
 
 		bool squish = false;
 
-		Inventory playerInv = new Inventory(5);
+		public Inventory playerInv = new Inventory(5);
 		AnimationSprite playerSprite = new AnimationSprite("textures/notAnimalCrossing.png", 3, 1, addCollider: false);
 
 		public Player(float x, float y) : base(100, 20)

@@ -29,10 +29,11 @@ namespace GXPEngine
 			return itemName;
 		}
 
-		private void SetProperties(int gid)
+		private void SetProperties(int gid) //for some reason first GID starts at 2 ?? so we do - 1 in the variable
 		{
-			this.gid = gid;
-			switch (gid)
+			this.gid = gid - 1;
+			Console.WriteLine("Loading Item with ID: " + this.gid);
+			switch (this.gid)
 			{
 				default:
 					texturePath = "textures/unknown.png";
@@ -43,8 +44,16 @@ namespace GXPEngine
 					itemName = "Cereal";
 					break;
 				case 2:
-					texturePath = "textures/grapes.png";
-					itemName = "Grapes";
+					texturePath = "textures/milk.png";
+					itemName = "Milk";
+					break;
+				case 3:
+					texturePath = "textures/pizza.png";
+					itemName = "Pizza";
+					break;
+				case 4:
+					texturePath = "textures/water.png";
+					itemName = "Water";
 					break;
 			}
 		}
