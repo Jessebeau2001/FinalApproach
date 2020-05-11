@@ -7,7 +7,8 @@ namespace GXPEngine
 {
 	class ShopList : Pivot
 	{
-        private float _height;
+        readonly float _width;
+        readonly float _height;
 
         HUDElement[] listItem;
 
@@ -32,12 +33,18 @@ namespace GXPEngine
             HUDElement listBottom = new HUDElement(0, listTop.height + (listItem[0].height * listItem.Length), "textures/alphaListBottom.png");
             AddChild(listBottom);
 
+            _width = listTop.width;
             _height = listTop.height + (listItem[0].height * listItem.Length) + listBottom.height;
         }
 
         public float height
         {
             get { return _height; }
+        }
+
+        public float width
+        {
+            get { return _width; }
         }
     }
 }

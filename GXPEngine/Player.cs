@@ -26,11 +26,14 @@ namespace GXPEngine
 
 		bool squish = false;
 
-		public Inventory playerInv = new Inventory(5);
+		public Inventory inventory;
+
 		AnimationSprite playerSprite = new AnimationSprite("textures/notAnimalCrossing.png", 3, 1, addCollider: false);
 
-		public Player(float x, float y) : base(100, 20)
+		public Player(float x, float y, int invSize) : base(100, 20)
 		{
+			inventory = new Inventory(invSize);
+			AddChild(inventory);
 			playerSprite.SetOrigin(0, playerSprite.height);
 			scaleFactor = (width * 1f) / (playerSprite.width * 1f);
 			playerSprite.scale = scaleFactor;  //calculating and setting a scaling so that the player width will always be 100 pixels
@@ -41,8 +44,6 @@ namespace GXPEngine
 			NoFill();
 			Stroke(245, 66, 66);
 			Rect(0, 0, width - 1, height - 1);
-
-			AddChild(playerInv);
 		}
 
 		void Update()
@@ -75,7 +76,7 @@ namespace GXPEngine
 		void OnCollision(GameObject other)
 		{
 			if (other is Pickup) {
-				playerInv.PickUp((other as Pickup).GetItemName());
+				inventory.PickUp((other as Pickup).GetItemName());
 				other.LateDestroy();
 				return;
 			}
@@ -109,8 +110,8 @@ namespace GXPEngine
 			}
 
 			if (Input.GetKeyDown(Key.SPACE))
-				Console.WriteLine(playerInv);
-				//playerInv.PrintContents();
+				Console.WriteLine(inventory);
+				//inventory.PrintContents();
 
 			force.Normalize();
 			force *= _speed;

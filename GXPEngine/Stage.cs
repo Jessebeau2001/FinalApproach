@@ -14,7 +14,7 @@ namespace GXPEngine
 		{
 			Sprite background = new Sprite("textures/mockupLevel_empty.png", false, false);
 			AddChild(background);
-			Player player = new Player(100, 100);
+			Player player = new Player(100, 100, 7);
 			AddChild(player);
 
 			NPC testNPC = new NPC(700, 400);

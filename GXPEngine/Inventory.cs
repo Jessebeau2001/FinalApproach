@@ -4,16 +4,11 @@ namespace GXPEngine
 	class Inventory : Pivot
 	{
 		string[] items;
-		int size;
+		private int _size;
 		public Inventory(int size)
 		{
 			items = new string[size];
-			this.size = size;
-		}
-
-		void Update()
-		{
-
+			_size = size;
 		}
 
 		public void PickUp(string item)
@@ -43,9 +38,9 @@ namespace GXPEngine
 				Console.WriteLine("Item slot " + i + " : '" + items[i] + "'");
 		}
 
-		public int invSize
+		public int size
 		{
-			get { return size; }
+			get { return _size; }
 		}
 	}
 }

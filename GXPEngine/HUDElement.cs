@@ -34,5 +34,10 @@ namespace GXPEngine
         {
             get { return ElementTexture.height; }
         }
+
+        public float width
+        {
+            get { return ElementTexture.width; }
+        }
     }
 }
