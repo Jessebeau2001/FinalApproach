@@ -35,7 +35,7 @@ namespace GXPEngine
             {
                 _moveTime = _moveTimeMax;
             }
-            _moveTime--;
+            _moveTime -= Time.deltaTime / 10;
         }
 
 
@@ -81,10 +81,11 @@ namespace GXPEngine
             switch (c)
             {
                 case 1:
-                    Move(_speed, 0);
+                    MoveUntilCollision(_speed, 0);
+                    
                     break;
                 case -1:
-                    Move(-_speed, 0);
+                    MoveUntilCollision(-_speed, 0);
                     break;
             }
         }
