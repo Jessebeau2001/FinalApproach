@@ -24,7 +24,7 @@ namespace GXPEngine
         void Update()
         {
             AnimHandler();
-            InputHandler()
+            InputHandler();
         }
 
         void InputHandler()
