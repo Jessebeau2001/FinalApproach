@@ -15,17 +15,18 @@ namespace GXPEngine
         HUDElement listTop;
         HUDElement[] listItem;
         HUDElement listBottom;
+        Inventory inv;
 
-        public ShopList(int listSize)
-		{
+        public ShopList(int listSize, Inventory inv) //Can be simplified by removed 'int listSize' and replacing by 'inv.size'
+        {                                            //but decided not to so you still have the option for a manual inventory size -Jesse
             listItem = new HUDElement[listSize];
-
+            this.inv = inv;
             listTop = new HUDElement(0, 0, "textures/alphaListTop.png");
             AddChild(listTop);
 
             for (int i = 0; i < listItem.Length; i++)
             {
-                listItem[i] = new HUDElement(0, 0, "textures/alphaListSection.png", "Im just here for now");
+                listItem[i] = new HUDElement(0, 0, "textures/alphaListSection.png", "Test Text");
                 listItem[i].y += listTop.height + (listItem[0].height * i);
 
                 AddChild(listItem[i]);
@@ -42,7 +43,16 @@ namespace GXPEngine
         {
             x = position.x;
             y = position.y;
+
+            UpdateList();
         }
+
+        public void UpdateList()
+        {
+            for (int i = 0; i < listItem.Length; i ++)
+                listItem[i].UpdateString(inv.GetItemName(i));
+        }
+
         public float width
         {
             get { return _width; }

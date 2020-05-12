@@ -16,7 +16,7 @@ namespace GXPEngine
 
         public HUDOverlay(Player player)
         {
-            list = new ShopList(player.inventory.size);
+            list = new ShopList(player.inventory.size, player.inventory);
             list.position.y = game.height - list.topHeight;
             AddChild(list);
         }
@@ -36,6 +36,9 @@ namespace GXPEngine
 
             if (Input.GetKeyDown(Key.LEFT_ALT))
                 animateList = true;
+
+            if (Input.GetKeyDown(Key.SPACE))
+                list.UpdateList();
         }
 
         void AnimHandler()
@@ -55,7 +58,7 @@ namespace GXPEngine
 
         void TranslateOverTime(ref Vec2 vec, Vec2 dist, int time)
         {
-            Console.WriteLine(vec);   
+            Console.WriteLine(vec);
             if (firstFrame)
             {
                 timeRemain = time;

@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Drawing;
 
 namespace GXPEngine
 {
     class HUDElement : Pivot
     {
         Sprite ElementTexture; //For pictures to overlay over the HUD
-         
+        EasyDraw textContainer;
+
         public HUDElement(float x, float y, string texturePath, string UIText = null)
         {
             this.x = x;
@@ -16,16 +15,22 @@ namespace GXPEngine
             ElementTexture = new Sprite(texturePath, false, false);
             AddChild(ElementTexture);
 
-            InititalizeText(UIText);
+            InititalizeText(UIText); 
         }
 
         void InititalizeText(string text) //For text to overlay over the HUD
         {
             if (text == null) return;
-            EasyDraw textContainer = new EasyDraw(ElementTexture.width, ElementTexture.height, false);
+            textContainer = new EasyDraw(ElementTexture.width, ElementTexture.height, false);
             AddChild(textContainer);
 
-            textContainer.TextAlign(CenterMode.Center, CenterMode.Center);
+            UpdateString(text);
+        }
+
+        public void UpdateString(string text)
+        {
+            if (text == null) return;
+            textContainer.Clear(Color.Transparent);
             textContainer.Fill(0, 0, 0);
             textContainer.Text(text, textContainer.width / 2, textContainer.height / 2);
         }
@@ -39,5 +44,6 @@ namespace GXPEngine
         {
             get { return ElementTexture.width; }
         }
+
     }
 }

@@ -38,6 +38,12 @@ namespace GXPEngine
 				Console.WriteLine("Item slot " + i + " : '" + items[i] + "'");
 		}
 
+		public string GetItemName(int slot)
+		{
+			if (slot > items.Length) return "null"; //if slot is out of inverntory array size bounds -Jesse
+			return items[slot];
+		}
+
 		public int size
 		{
 			get { return _size; }
