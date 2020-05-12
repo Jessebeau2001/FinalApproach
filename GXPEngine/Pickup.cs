@@ -22,6 +22,7 @@ namespace GXPEngine
 
 			Sprite sprite = new Sprite(texturePath, true, false);
 			AddChild(sprite);
+			scale = 0.7f;
 		}
 
 		public string GetItemName()
