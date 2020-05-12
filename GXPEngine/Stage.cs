@@ -12,7 +12,7 @@ namespace GXPEngine
 		Pickup item;
 		public Stage() : base()
 		{
-			Sprite background = new Sprite("textures/mockupLevel_empty.png", false, false);
+			Sprite background = new Sprite("textures/mockupBG.png", false, false);
 			AddChild(background);
 			Player player = new Player(100, 100, 7);
 			AddChild(player);

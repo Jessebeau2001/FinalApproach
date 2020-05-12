@@ -14,7 +14,8 @@ public class MyGame : Game
 
     void Update()
 	{
-
+		//if (Input.GetKeyDown(Key.SPACE))
+		//	stage.LateDestroy();
 	}
 
 	static void Main()							// Main() is the first method that's called when the program is run

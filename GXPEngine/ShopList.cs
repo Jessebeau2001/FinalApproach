@@ -16,11 +16,8 @@ namespace GXPEngine
         HUDElement[] listItem;
         HUDElement listBottom;
 
-        public ShopList(float x, float y, int listSize)
+        public ShopList(int listSize)
 		{
-            position.x = x;
-            position.y = y;
-
             listItem = new HUDElement[listSize];
 
             listTop = new HUDElement(0, 0, "textures/alphaListTop.png");

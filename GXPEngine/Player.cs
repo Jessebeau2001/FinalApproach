@@ -68,7 +68,7 @@ namespace GXPEngine
 					playerSprite.scaleY *= .98f;
 				else
 					playerSprite.scaleY = scaleFactor;
-			
+
 				squish = !squish;
 			}
 		}
@@ -79,6 +79,11 @@ namespace GXPEngine
 				inventory.PickUp((other as Pickup).GetItemName());
 				other.LateDestroy();
 				return;
+			}
+
+			if (other is NPC)
+			{
+				LateDestroy();
 			}
 
 			var ColInfo = collider.GetCollisionInfo(other.collider);

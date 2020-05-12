@@ -20,7 +20,7 @@ public struct Vec2
 
 	public override string ToString()
 	{
-		return String.Format("({0},{1}", x, y);
+		return String.Format("(X: {0}, Y: {1})", x, y);
 	}
 
 	public static Vec2 operator- (Vec2 left, Vec2 right)
@@ -36,6 +36,11 @@ public struct Vec2
 	public static Vec2 operator* (float multiplier, Vec2 right)
 	{
 		return new Vec2(right.x * multiplier, right.y * multiplier);
+	}
+
+	public static Vec2 operator/ (Vec2 left, float divider)
+	{
+		return new Vec2(left.x / divider, left.y / divider);
 	}
 
 	public static Vec2 operator+ (Vec2 left, Vector2 right)
@@ -67,10 +72,5 @@ public struct Vec2
 	{
 		this.x = x;
 		this.y = y;
-	}
-
-	public void Translate(Vec2 distance, int time = 0)
-	{
-		this += distance;
 	}
 }
