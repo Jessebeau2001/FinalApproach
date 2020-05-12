@@ -10,16 +10,20 @@ namespace GXPEngine
         readonly float _width;
         readonly float _height;
 
+        public Vec2 position;
+
+        HUDElement listTop;
         HUDElement[] listItem;
+        HUDElement listBottom;
 
         public ShopList(float x, float y, int listSize)
 		{
-            this.x = x;
-            this.y = y;
+            position.x = x;
+            position.y = y;
 
             listItem = new HUDElement[listSize];
 
-            HUDElement listTop = new HUDElement(0, 0, "textures/alphaListTop.png");
+            listTop = new HUDElement(0, 0, "textures/alphaListTop.png");
             AddChild(listTop);
 
             for (int i = 0; i < listItem.Length; i++)
@@ -30,21 +34,35 @@ namespace GXPEngine
                 AddChild(listItem[i]);
             }
 
-            HUDElement listBottom = new HUDElement(0, listTop.height + (listItem[0].height * listItem.Length), "textures/alphaListBottom.png");
+            listBottom = new HUDElement(0, listTop.height + (listItem[0].height * listItem.Length), "textures/alphaListBottom.png");
             AddChild(listBottom);
 
             _width = listTop.width;
             _height = listTop.height + (listItem[0].height * listItem.Length) + listBottom.height;
         }
 
+        void Update()
+        {
+            x = position.x;
+            y = position.y;
+        }
+        public float width
+        {
+            get { return _width; }
+        }
         public float height
         {
             get { return _height; }
         }
 
-        public float width
+        public float topHeight
         {
-            get { return _width; }
+            get { return listTop.height; }
+        }
+
+        public float sectionHeight
+        {
+            get { return listItem[0].height * listItem.Length; }
         }
     }
 }

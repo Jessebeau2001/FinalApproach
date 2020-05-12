@@ -69,8 +69,8 @@ public struct Vec2
 		this.y = y;
 	}
 
-	public static void UnitTest()
+	public void Translate(Vec2 distance, int time = 0)
 	{
-
+		this += distance;
 	}
 }
