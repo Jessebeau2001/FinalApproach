@@ -26,6 +26,8 @@ namespace GXPEngine
         private Vec2 _velocity;
         private Vec2 _position;
 
+        Vec2 prevPos;
+
         string animState = "v";
 
         private int d = 1;
@@ -58,6 +60,12 @@ namespace GXPEngine
 
             _force *= 0f;
             _velocity *= 0.9f;
+
+            if (x < 0 || x > game.width || y < 0 || y > game.height)
+            {
+                d = -d;
+                _velocity *= -1;
+            }
         }
 
         public void OnCollision(GameObject other)
