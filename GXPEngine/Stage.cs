@@ -16,23 +16,22 @@ namespace GXPEngine
 		public Stage() : base()
 		{
 			background = new Sprite("textures/mockupLevel_empty.png", false, false);
-			AddChild(background);
-
-			InitializeNPCs();
-
-			player = new Player(100, 100, 7);
-			AddChild(player);
-
 			stageCol = new StageColliders(mapPath);
-			AddChild(stageCol);
-
 			playerHUD = new HUDOverlay(player, stageCol.itemList);
+			player = new Player(100, 100, stageCol.itemList.Length, playerHUD);
+
+			AddChild(background);
+			AddChild(stageCol);
+			AddChild(player);	//seperated the addChildren so we can set what render on top of what -Jesse
 			AddChild(playerHUD);
+
+			//InitializeNPCs();
 		}
 
 		public void Update()
 		{
-
+			if (Input.GetKeyDown(Key.SPACE))
+				playerHUD.shopList.checkItem(0);
 		}
 
 		private void InitializeNPCs()

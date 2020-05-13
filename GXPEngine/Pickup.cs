@@ -10,12 +10,14 @@ namespace GXPEngine
 		private int gid;
 		private string _itemName;
 		private string _texturePath;
+		private int _itemIndex;
 
 		//public Pickup(float x, float y, int gid) : base("textures/grapes.png", false, true)
-		public Pickup(float x, float y, int gid) : base(100, 100, true)
+		public Pickup(float x, float y, int gid, int itemIndex) : base(100, 100, true)
 		{
 			this.x = x;
 			this.y = y;
+			_itemIndex = itemIndex;
 
 			Rect(x, y, width, height);
 			SetProperties(gid);
@@ -62,6 +64,11 @@ namespace GXPEngine
 		public string itemName
 		{
 			get { return _itemName; }
+		}
+
+		public int itemIndex
+		{
+			get { return _itemIndex; }
 		}
 	}
 }

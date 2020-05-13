@@ -72,5 +72,10 @@ namespace GXPEngine
                 animateList = false;
             }
         }
+
+        public ShopList shopList
+        {
+            get { return list; }
+        }
     }
 }

@@ -54,13 +54,11 @@ namespace GXPEngine
 					int i = 0;
 					foreach (TiledObject obj in group.Objects)
 					{
-						_itemList[i] = new Pickup(Mathf.Round(obj.X), Mathf.Round(obj.Y), obj.GID);
+						_itemList[i] = new Pickup(Mathf.Round(obj.X), Mathf.Round(obj.Y), obj.GID, i);
 						AddChild(_itemList[i]);
+						Console.WriteLine($"{_itemList[i].itemName} has been initilized");
 						i++;
 					}
-
-					foreach (Pickup item in _itemList)
-						Console.WriteLine(item);
 				}
 			}
 		}
