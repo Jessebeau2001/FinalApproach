@@ -28,8 +28,7 @@ namespace GXPEngine
 
         string animState = "v";
 
-        private bool _bounce = false;
-        private string _direction = "";
+        private int d = 1;
 
         AnimationSprite NPCSprite = new AnimationSprite("textures/notAnimalCrossing.png", 3, 1, addCollider: false); //Needs NPC spritesheet before using, currently uses Player spritesheet
 
@@ -59,27 +58,17 @@ namespace GXPEngine
 
             _force *= 0f;
             _velocity *= 0.9f;
-
-            setDirection();
         }
 
-        public void OnCollision(Pivot other)
+        public void OnCollision(GameObject other)
         {
-            if(other is StageColliders)
+            if (other.parent is StageColliders)
             {
-                _bounce = true;
-            }
-        }
+                var ColInfo = collider.GetCollisionInfo(other.collider);
+                _position += ColInfo.normal * ColInfo.penetrationDepth;
 
-        private void setDirection()
-        {
-            if (_velocity.x < 0 && _velocity.y == 0)
-            {
-                _direction = "left";
-            }
-            if (_velocity.x > 0 && _velocity.y == 0)
-            {
-                _direction = "right";
+                d = -d;
+                _velocity *= -1;
             }
         }
 
@@ -133,18 +122,14 @@ namespace GXPEngine
             //        break;
             //}
 
-            _force.x += _speed;
-
-            if (_bounce)
+            switch (d)
             {
-                if (_direction == "left")
-                {
-                    SetState("<");
-                }
-                if (_direction == "right")
-                {
-                    SetState(">");
-                }
+                case 1:
+                    _force.x += _speed;
+                    break;
+                case -1:
+                    _force.x -= _speed;
+                    break;                    
             }
         }
 
@@ -171,16 +156,14 @@ namespace GXPEngine
             //        break;
             //}
 
-            if (!_bounce)
+            switch (d)
             {
-                _force.y -= 1;
-                SetState("^");
-            }
-
-            if (_bounce)
-            {
-                _force.y += 1;
-                SetState("v");
+                case 1:
+                    _force.y += _speed;
+                    break;
+                case -1:
+                    _force.y -= _speed;
+                    break;
             }
         }
         private void movementPatternSquare()

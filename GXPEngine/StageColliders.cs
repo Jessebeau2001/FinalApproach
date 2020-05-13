@@ -3,7 +3,7 @@ using TiledMapParser;
 
 namespace GXPEngine
 {
-    class StageColliders : Pivot
+    class StageColliders : GameObject
     {
         EasyDraw col;
 

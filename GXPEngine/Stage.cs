@@ -24,7 +24,7 @@ namespace GXPEngine
 			AddChild(background);
 
 			testNPC = new NPC(900, 400);
-			testNPC.SetMovementPattern("LR"); //LR = LeftRight, UD = UpDown, SQ = Square
+			testNPC.SetMovementPattern("UD"); //LR = LeftRight, UD = UpDown, SQ = Square
 			AddChild(testNPC);
 
 			player = new Player(100, 100, 7);
@@ -42,7 +42,6 @@ namespace GXPEngine
 
 		public void Update()
 		{
-			testNPC.OnCollision(colBox);
 		}
 
 		//void CreateBoundingBox(int x, int y, int width, int height, bool addCollider, bool showBounds)
