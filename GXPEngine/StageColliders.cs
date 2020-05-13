@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using TiledMapParser;
 
 namespace GXPEngine
@@ -7,7 +8,9 @@ namespace GXPEngine
     {
 		Map leveldata;
         EasyDraw col;
-		Pickup item;
+
+		Pickup[] _itemList;
+
         public StageColliders(string mapPath)
         {
 			leveldata = MapParser.ReadMap(mapPath);
@@ -46,15 +49,25 @@ namespace GXPEngine
 				}
 				if (group.Name == "Items")
 				{
+					_itemList = new Pickup[group.Objects.Length];
+					if (group.Objects == null || group.Objects.Length == 0) return;
+					int i = 0;
 					foreach (TiledObject obj in group.Objects)
 					{
-						if (group.Objects == null || group.Objects.Length == 0) return;
-
-						item = new Pickup(Mathf.Round(obj.X), Mathf.Round(obj.Y), obj.GID);
-						AddChild(item);
+						_itemList[i] = new Pickup(Mathf.Round(obj.X), Mathf.Round(obj.Y), obj.GID);
+						AddChild(_itemList[i]);
+						i++;
 					}
+
+					foreach (Pickup item in _itemList)
+						Console.WriteLine(item);
 				}
 			}
+		}
+
+		public Pickup[] itemList
+		{
+			get { return _itemList; }
 		}
 	}
 }

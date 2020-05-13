@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 
 namespace GXPEngine
 {
@@ -14,9 +15,9 @@ namespace GXPEngine
         private int timeRemain = 1;
         private bool shown = false;
 
-        public HUDOverlay(Player player)
+        public HUDOverlay(Player player, Pickup[] itemList)
         {
-            list = new ShopList(player.inventory.size, player.inventory);
+            list = new ShopList(itemList);
             list.position.y = game.height - list.topHeight;
             AddChild(list);
         }
@@ -36,9 +37,6 @@ namespace GXPEngine
 
             if (Input.GetKeyDown(Key.LEFT_ALT))
                 animateList = true;
-
-            if (Input.GetKeyDown(Key.SPACE))
-                list.UpdateList();
         }
 
         void AnimHandler()

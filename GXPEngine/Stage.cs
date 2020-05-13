@@ -8,8 +8,8 @@ namespace GXPEngine
 		private string mapPath = "maps/test.tmx";
 
 		Sprite background;
-		NPC testNPC;
 		Player player;
+		NPC testNPC;
 		StageColliders stageCol;
 		HUDOverlay playerHUD;
 
@@ -26,12 +26,13 @@ namespace GXPEngine
 			stageCol = new StageColliders(mapPath);
 			AddChild(stageCol);
 
-			playerHUD = new HUDOverlay(player);
+			playerHUD = new HUDOverlay(player, stageCol.itemList);
 			AddChild(playerHUD);
 		}
 
 		public void Update()
 		{
+
 		}
 
 		private void InitializeNPCs()
