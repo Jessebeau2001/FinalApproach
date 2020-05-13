@@ -58,14 +58,16 @@ namespace GXPEngine
 
             _force *= 0f;
             _velocity *= 0.9f;
+
+            Console.WriteLine(_bounce);
         }
 
-        void OnCollision(GameObject other)
+        void OnCollision(Pivot other)
         {
-            //if (other is )
-            //{ 
-            //    _bounce = !_bounce;
-            //}
+            if (other is StageColliders)
+            {
+                _bounce = !_bounce;
+            }
         }
 
         public string GetMovementPattern()
