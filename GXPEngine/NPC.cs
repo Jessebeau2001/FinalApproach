@@ -12,7 +12,7 @@ namespace GXPEngine
     {
         string _movePattern;
 
-        float _speed = 1;
+        float _speed = 0.4f;
 
         public Vec2 position
         {
