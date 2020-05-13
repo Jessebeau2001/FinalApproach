@@ -7,68 +7,93 @@ namespace GXPEngine
 	{
 		private string mapPath = "maps/test.tmx";
 
-		EasyDraw col;
+		//EasyDraw col;
 
-		Pickup item;
+		//Pickup item;
+
+		Sprite background;
+		NPC testNPC;
+		Player player;
+		Map leveldata;
+		StageColliders colBox;
+		HUDOverlay playerHUD;
+
 		public Stage() : base()
 		{
-			Sprite background = new Sprite("textures/mockupLevel_empty.png", false, false);
+			background = new Sprite("textures/mockupLevel_empty.png", false, false);
 			AddChild(background);
-			Player player = new Player(100, 100, 7);
+
+			InitializeNPCs();
+
+			player = new Player(100, 100, 7);
 			AddChild(player);
 
-			NPC testNPC = new NPC(700, 400);
-			testNPC.SetMovementPattern("LR"); //LR = LeftRight, UD = UpDown, SQ = Square
-			AddChild(testNPC);
+			leveldata = MapParser.ReadMap(mapPath);
+			colBox = new StageColliders(leveldata);
+			AddChild(colBox);
 
-			Map leveldata = MapParser.ReadMap(mapPath);
-			SpawnColliders(leveldata, true);
+			//SpawnColliders(leveldata, true);
 
-			HUDOverlay playerHUD = new HUDOverlay(player);
+			playerHUD = new HUDOverlay(player);
 			AddChild(playerHUD);
 		}
 
-		void CreateBoundingBox(int x, int y, int width, int height, bool addCollider, bool showBounds)
+		public void Update()
 		{
-			col = new EasyDraw(width, height, addCollider);
-			col.NoFill();
-			col.Stroke(245, 66, 66);
-			if (showBounds)
-				col.StrokeWeight(1);
-			col.ShapeAlign(CenterMode.Min, CenterMode.Min);
-			col.Rect(0, 0, col.width - 1, col.height - 1);
-			col.x = x;
-			col.y = y;
-			AddChild(col);
 		}
 
-		void SpawnColliders(Map leveldata, bool showBounds)
+		private void InitializeNPCs()
 		{
-			if (leveldata.ObjectGroups == null || leveldata.ObjectGroups.Length == 0) return;
+			testNPC = new NPC(900, 400);
+			testNPC.SetMovementPattern("LR"); //LR = LeftRight, UD = UpDown, SQ = Square
+			AddChild(testNPC);
 
-			foreach (ObjectGroup group in leveldata.ObjectGroups)
-			{
-				Console.WriteLine("Loading object group '" + group.Name + "' with group ID '" + group.id + "'");
-				if (group.Name == "WallColliders")
-				{
-					foreach (TiledObject obj in group.Objects)
-					{
-						if (group.Objects == null || group.Objects.Length == 0) return;
-						Console.WriteLine($"{ obj }");
-						CreateBoundingBox(Mathf.Round(obj.X), Mathf.Round(obj.Y), Mathf.Round(obj.Width), Mathf.Round(obj.Height), true, showBounds);
-					}
-				}
-				if (group.Name == "Items")
-				{
-					foreach (TiledObject obj in group.Objects)
-					{
-						if (group.Objects == null || group.Objects.Length == 0) return;
-
-						item = new Pickup(Mathf.Round(obj.X), Mathf.Round(obj.Y), obj.GID);
-						AddChild(item);
-					}
-				}
-			}
+			testNPC = new NPC(400, 600);
+			testNPC.SetMovementPattern("UD");
+			AddChild(testNPC);
 		}
+
+		//void CreateBoundingBox(int x, int y, int width, int height, bool addCollider, bool showBounds)
+		//{
+		//	col = new EasyDraw(width, height, addCollider);
+		//	col.NoFill();
+		//	col.Stroke(245, 66, 66);
+		//	if (showBounds)
+		//		col.StrokeWeight(1);
+		//	col.ShapeAlign(CenterMode.Min, CenterMode.Min);
+		//	col.Rect(0, 0, col.width - 1, col.height - 1);
+		//	col.x = x;
+		//	col.y = y;
+		//	AddChild(col);
+		//}
+
+		//void SpawnColliders(Map leveldata, bool showBounds)
+		//{
+		//	if (leveldata.ObjectGroups == null || leveldata.ObjectGroups.Length == 0) return;
+
+		//	foreach (ObjectGroup group in leveldata.ObjectGroups)
+		//	{
+		//		Console.WriteLine("Loading object group '" + group.Name + "' with group ID '" + group.id + "'");
+		//		if (group.Name == "WallColliders")
+		//		{
+		//			foreach (TiledObject obj in group.Objects)
+		//			{
+		//				if (group.Objects == null || group.Objects.Length == 0) return;
+		//				Console.WriteLine($"{ obj }");
+		//				CreateBoundingBox(Mathf.Round(obj.X), Mathf.Round(obj.Y), Mathf.Round(obj.Width), Mathf.Round(obj.Height), true, showBounds);
+		//			}
+		//		}
+		//		if (group.Name == "Items")
+		//		{
+		//			foreach (TiledObject obj in group.Objects)
+		//			{
+		//				if (group.Objects == null || group.Objects.Length == 0) return;
+
+		//				item = new Pickup(Mathf.Round(obj.X), Mathf.Round(obj.Y), obj.GID);
+		//				AddChild(item);
+		//			}
+		//		}
+		//	}
+		//}
 	}
 }

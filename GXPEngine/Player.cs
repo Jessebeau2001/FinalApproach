@@ -20,7 +20,7 @@ namespace GXPEngine
 		float _speed = 1;
 		float scaleFactor;
 
-		string animState = "";
+		string animState = "v";
 
 		int timer = 1000;
 
@@ -101,7 +101,7 @@ namespace GXPEngine
 				
 			if (Input.GetKey(Key.S)) { 
 				force.y += 1;
-				SetState("");
+				SetState("v");
 			}
 
 			if (Input.GetKey(Key.A)) {
@@ -132,7 +132,7 @@ namespace GXPEngine
 		private void AnimationHandeler()
 		{
 			switch (animState) {
-				case "":
+				case "v":
 					playerSprite.SetFrame(0);
 					break;
 				case "<":
