@@ -127,7 +127,6 @@ namespace GXPEngine
 
 			if (Input.GetKeyDown(Key.SPACE))
 				Console.WriteLine(inventory);
-				//inventory.PrintContents();
 
 			force.Normalize();
 			force *= _speed;

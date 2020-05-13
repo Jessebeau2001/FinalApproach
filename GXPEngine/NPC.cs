@@ -1,12 +1,4 @@
-﻿using GXPEngine.Core;
-using GXPEngine.Managers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Principal;
-using System.Text;
-
-namespace GXPEngine
+﻿namespace GXPEngine
 {
     class NPC : EasyDraw
     {
@@ -70,7 +62,7 @@ namespace GXPEngine
 
         public void OnCollision(GameObject other)
         {
-            if (other.parent is StageColliders)
+            if (other is EasyDraw && other.name == "colBox")
             {
                 var ColInfo = collider.GetCollisionInfo(other.collider);
                 _position += ColInfo.normal * ColInfo.penetrationDepth;

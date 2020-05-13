@@ -46,6 +46,11 @@ namespace GXPEngine
 
         void ToggleList()
         {
+            //if (shown)
+            //    TranslateOverTime(ref list.position, new Vec2(-700, 900), 200);
+            //else
+            //    TranslateOverTime(ref list.position, new Vec2(700, -900), 200);
+
             if (shown)
                 TranslateOverTime(ref list.position, new Vec2(0, list.sectionHeight), 200);
             else

@@ -36,6 +36,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ColBox.cs" />
     <Compile Include="HUDElement.cs" />
     <Compile Include="HUDOverlay.cs" />
     <Compile Include="Inventory.cs" />
