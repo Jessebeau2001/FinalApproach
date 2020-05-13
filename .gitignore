@@ -5,6 +5,7 @@
 
 # GXP files and folders
 /docs
+GXPEngine.exe
 
 # User-specific files
 *.rsuser

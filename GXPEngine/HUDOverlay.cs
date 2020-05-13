@@ -52,13 +52,10 @@ namespace GXPEngine
                 TranslateOverTime(ref list.position, new Vec2(0, list.sectionHeight), 200);
             else
                 TranslateOverTime(ref list.position, new Vec2(0, list.sectionHeight * -1), 200);
-
-            Console.WriteLine(shown);
         }
 
         void TranslateOverTime(ref Vec2 vec, Vec2 dist, int time)
         {
-            Console.WriteLine(vec);
             if (firstFrame)
             {
                 timeRemain = time;
@@ -76,7 +73,6 @@ namespace GXPEngine
                 shown = !shown;
                 animateList = false;
             }
-            Console.WriteLine(vec);
         }
     }
 }

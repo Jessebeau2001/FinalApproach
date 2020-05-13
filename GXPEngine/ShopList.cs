@@ -17,7 +17,7 @@ namespace GXPEngine
         HUDElement listBottom;
         Inventory inv;
 
-        public ShopList(int listSize, Inventory inv) //Can be simplified by removed 'int listSize' and replacing by 'inv.size'
+        public ShopList(int listSize, Inventory inv) //Can be simplified by removing 'int listSize' and replacing by 'inv.size'
         {                                            //but decided not to so you still have the option for a manual inventory size -Jesse
             listItem = new HUDElement[listSize];
             this.inv = inv;
