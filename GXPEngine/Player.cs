@@ -17,6 +17,8 @@ namespace GXPEngine
 		public Vec2 velocity;
 		private Vec2 _position;
 
+		Vec2 prevPos;
+
 		float _speed = 1;
 		float scaleFactor;
 
@@ -51,7 +53,6 @@ namespace GXPEngine
 			Control();
 			velocity += force;
 			velocity *= Time.deltaTime / 10;
-			//Console.WriteLine("Velocity = " + velocity);
 			_position += velocity;
 
 			x = _position.x;
@@ -71,6 +72,12 @@ namespace GXPEngine
 
 				squish = !squish;
 			}
+
+
+			if (x < 0 || x > game.width || y < 0 || y > game.height)
+				_position = prevPos;
+
+			prevPos = _position;
 		}
 
 		void OnCollision(GameObject other)

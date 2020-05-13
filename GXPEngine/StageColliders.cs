@@ -5,13 +5,13 @@ namespace GXPEngine
 {
     class StageColliders : GameObject
     {
+		Map leveldata;
         EasyDraw col;
-
 		Pickup item;
-        public StageColliders(Map leveldata)
+        public StageColliders(string mapPath)
         {
-			Map ld = leveldata;
-			SpawnColliders(ld, true);
+			leveldata = MapParser.ReadMap(mapPath);
+			SpawnColliders(leveldata, true);
 		}
 
 		void CreateBoundingBox(int x, int y, int width, int height, bool addCollider, bool showBounds)
