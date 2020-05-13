@@ -10,26 +10,39 @@ namespace GXPEngine
 		//EasyDraw col;
 
 		//Pickup item;
+
+		Sprite background;
+		NPC testNPC;
+		Player player;
+		Map leveldata;
+		StageColliders colBox;
+		HUDOverlay playerHUD;
+
 		public Stage() : base()
 		{
-			Sprite background = new Sprite("textures/mockupLevel_empty.png", false, false);
+			background = new Sprite("textures/mockupLevel_empty.png", false, false);
 			AddChild(background);
 
-			NPC testNPC = new NPC(700, 400);
+			testNPC = new NPC(900, 400);
 			testNPC.SetMovementPattern("LR"); //LR = LeftRight, UD = UpDown, SQ = Square
 			AddChild(testNPC);
 
-			Player player = new Player(100, 100, 7);
+			player = new Player(100, 100, 7);
 			AddChild(player);
 
-			Map leveldata = MapParser.ReadMap(mapPath);
-			StageColliders colBox = new StageColliders(leveldata);
+			leveldata = MapParser.ReadMap(mapPath);
+			colBox = new StageColliders(leveldata);
 			AddChild(colBox);
 
 			//SpawnColliders(leveldata, true);
 
-			HUDOverlay playerHUD = new HUDOverlay(player);
+			playerHUD = new HUDOverlay(player);
 			AddChild(playerHUD);
+		}
+
+		public void Update()
+		{
+			testNPC.OnCollision(colBox);
 		}
 
 		//void CreateBoundingBox(int x, int y, int width, int height, bool addCollider, bool showBounds)

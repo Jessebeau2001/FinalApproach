@@ -29,6 +29,7 @@ namespace GXPEngine
         string animState = "v";
 
         private bool _bounce = false;
+        private string _direction = "";
 
         AnimationSprite NPCSprite = new AnimationSprite("textures/notAnimalCrossing.png", 3, 1, addCollider: false); //Needs NPC spritesheet before using, currently uses Player spritesheet
 
@@ -59,14 +60,26 @@ namespace GXPEngine
             _force *= 0f;
             _velocity *= 0.9f;
 
-            Console.WriteLine(_bounce);
+            setDirection();
         }
 
-        void OnCollision(Pivot other)
+        public void OnCollision(Pivot other)
         {
-            if (other is StageColliders)
+            if(other is StageColliders)
             {
-                _bounce = !_bounce;
+                _bounce = true;
+            }
+        }
+
+        private void setDirection()
+        {
+            if (_velocity.x < 0 && _velocity.y == 0)
+            {
+                _direction = "left";
+            }
+            if (_velocity.x > 0 && _velocity.y == 0)
+            {
+                _direction = "right";
             }
         }
 
@@ -120,16 +133,18 @@ namespace GXPEngine
             //        break;
             //}
 
-            if (!_bounce)
-            {
-                _force.x -= 1;
-                SetState("<");
-            }
+            _force.x += _speed;
 
             if (_bounce)
             {
-                _force.x += 1;
-                SetState(">");
+                if (_direction == "left")
+                {
+                    SetState("<");
+                }
+                if (_direction == "right")
+                {
+                    SetState(">");
+                }
             }
         }
 
