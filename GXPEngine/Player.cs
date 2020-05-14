@@ -31,8 +31,9 @@ namespace GXPEngine
 		public Inventory inventory;
 
 		AnimationSprite playerSprite = new AnimationSprite("textures/notAnimalCrossing.png", 3, 1, addCollider: false);
+		HUDOverlay playerHUD;
 
-		public Player(float x, float y, int invSize) : base(100, 20)
+		public Player(float x, float y, int invSize, HUDOverlay playerHUD) : base(100, 20)
 		{
 			inventory = new Inventory(invSize);
 			AddChild(inventory);
@@ -46,6 +47,8 @@ namespace GXPEngine
 			NoFill();
 			Stroke(245, 66, 66);
 			Rect(0, 0, width - 1, height - 1);
+
+			this.playerHUD = playerHUD;
 		}
 
 		void Update()
@@ -84,6 +87,7 @@ namespace GXPEngine
 		{
 			if (other is Pickup) {
 				inventory.PickUp((other as Pickup).GetItemName());
+				playerHUD.shopList.checkItem((other as Pickup).itemIndex);
 				other.LateDestroy();
 				return;
 			}
@@ -123,7 +127,6 @@ namespace GXPEngine
 
 			if (Input.GetKeyDown(Key.SPACE))
 				Console.WriteLine(inventory);
-				//inventory.PrintContents();
 
 			force.Normalize();
 			force *= _speed;

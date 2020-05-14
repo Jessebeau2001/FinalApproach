@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Collections;
 
 namespace GXPEngine
 {
@@ -15,21 +13,26 @@ namespace GXPEngine
         HUDElement listTop;
         HUDElement[] listItem;
         HUDElement listBottom;
-        Inventory inv;
 
-        public ShopList(int listSize, Inventory inv) //Can be simplified by removing 'int listSize' and replacing by 'inv.size'
-        {                                            //but decided not to so you still have the option for a manual inventory size -Jesse
-            listItem = new HUDElement[listSize];
-            this.inv = inv;
+        Sprite[] checkMarks;
+
+        public ShopList(Pickup[] itemList)
+        {
             listTop = new HUDElement(0, 0, "textures/alphaListTop.png");
             AddChild(listTop);
 
+            listItem = new HUDElement[itemList.Length];
+            checkMarks = new Sprite[itemList.Length];
             for (int i = 0; i < listItem.Length; i++)
             {
-                listItem[i] = new HUDElement(0, 0, "textures/alphaListSection.png", "Test Text");
+                listItem[i] = new HUDElement(0, 0, "textures/alphaListSection.png", itemList[i].itemName);
                 listItem[i].y += listTop.height + (listItem[0].height * i);
-
                 AddChild(listItem[i]);
+                
+                checkMarks[i] = new Sprite("textures/check.png", false);
+                checkMarks[i].x += 6; //just put something here that fits
+                listItem[i].AddChild(checkMarks[i]);
+                checkMarks[i].visible = false;
             }
 
             listBottom = new HUDElement(0, listTop.height + (listItem[0].height * listItem.Length), "textures/alphaListBottom.png");
@@ -37,20 +40,13 @@ namespace GXPEngine
 
             _width = listTop.width;
             _height = listTop.height + (listItem[0].height * listItem.Length) + listBottom.height;
+
         }
 
         void Update()
         {
             x = position.x;
             y = position.y;
-
-            UpdateList();
-        }
-
-        public void UpdateList()
-        {
-            for (int i = 0; i < listItem.Length; i ++)
-                listItem[i].UpdateString(inv.GetItemName(i));
         }
 
         public float width
@@ -70,6 +66,11 @@ namespace GXPEngine
         public float sectionHeight
         {
             get { return listItem[0].height * listItem.Length; }
+        }
+
+        public void checkItem(int index)
+        {
+            checkMarks[index].visible = true;
         }
     }
 }

@@ -8,26 +8,28 @@ namespace GXPEngine
 	class Pickup : EasyDraw
 	{
 		private int gid;
-		private string itemName;
-		private string texturePath;
+		private string _itemName;
+		private string _texturePath;
+		private int _itemIndex;
 
 		//public Pickup(float x, float y, int gid) : base("textures/grapes.png", false, true)
-		public Pickup(float x, float y, int gid) : base(100, 100, true)
+		public Pickup(float x, float y, int gid, int itemIndex) : base(100, 100, true)
 		{
 			this.x = x;
 			this.y = y;
+			_itemIndex = itemIndex;
 
 			Rect(x, y, width, height);
 			SetProperties(gid);
 
-			Sprite sprite = new Sprite(texturePath, true, false);
+			Sprite sprite = new Sprite(_texturePath, true, false);
 			AddChild(sprite);
 			//scale = .2f;
 		}
 
 		public string GetItemName()
 		{
-			return itemName;
+			return _itemName;
 		}
 
 		private void SetProperties(int gid) //for some reason first GID starts at 2 ?? so we do - 1 in the variable
@@ -37,26 +39,36 @@ namespace GXPEngine
 			switch (this.gid)
 			{
 				default:
-					texturePath = "textures/unknown.png";
-					itemName = "Unkown";
+					_texturePath = "textures/unknown.png";
+					_itemName = "Unkown";
 					break;
 				case 1:
-					texturePath = "textures/cereal.png";
-					itemName = "Cereal";
+					_texturePath = "textures/cereal.png";
+					_itemName = "Cereal";
 					break;
 				case 2:
-					texturePath = "textures/milk.png";
-					itemName = "Milk";
+					_texturePath = "textures/milk.png";
+					_itemName = "Milk";
 					break;
 				case 3:
-					texturePath = "textures/pizza.png";
-					itemName = "Pizza";
+					_texturePath = "textures/pizza.png";
+					_itemName = "Pizza";
 					break;
 				case 4:
-					texturePath = "textures/water.png";
-					itemName = "Water";
+					_texturePath = "textures/water.png";
+					_itemName = "Water";
 					break;
 			}
+		}
+
+		public string itemName
+		{
+			get { return _itemName; }
+		}
+
+		public int itemIndex
+		{
+			get { return _itemIndex; }
 		}
 	}
 }

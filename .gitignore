@@ -5,6 +5,7 @@
 
 # GXP files and folders
 /docs
+GXPEngine/bin/Debug/GXPEngine.exe
 GXPEngine.exe
 
 # User-specific files
