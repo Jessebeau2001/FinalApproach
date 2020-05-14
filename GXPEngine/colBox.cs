@@ -10,6 +10,7 @@
 			col.name = name;
 			col.NoFill();
 			col.Stroke(245, 66, 66);
+			if (name == "WinBox") col.Stroke(19, 252, 3);
 			if (showBounds)
 				col.StrokeWeight(1);
 			else

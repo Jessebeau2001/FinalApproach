@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-down" width="28" height="32" tilewidth="16" tileheight="16" infinite="1" nextlayerid="5" nextobjectid="71">
+ <tileset firstgid="1" name="testSet" tilewidth="128" tileheight="128" tilecount="4" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="1" type="cereal">
+   <image width="128" height="128" source="../textures/cereal.png"/>
+  </tile>
+  <tile id="2" type="milk">
+   <image width="128" height="128" source="../textures/milk.png"/>
+  </tile>
+  <tile id="3" type="pizza">
+   <image width="128" height="128" source="../textures/pizza.png"/>
+  </tile>
+  <tile id="4" type="water">
+   <image width="128" height="128" source="../textures/water.png"/>
+  </tile>
+ </tileset>
+ <imagelayer id="3" name="background" offsetx="22" offsety="0">
+  <image source="../textures/room_decorated.png" width="1920" height="1080"/>
+ </imagelayer>
+ <layer id="1" name="Tile Layer 1" width="28" height="32">
+  <data encoding="csv"/>
+ </layer>
+ <objectgroup id="2" name="WallColliders">
+  <object id="15" x="1404.25" y="881.721" width="19.5027" height="173.42" rotation="-0.324904"/>
+  <object id="44" x="753" y="396" width="406" height="154"/>
+  <object id="45" x="737" y="540" width="38" height="304"/>
+  <object id="46" x="1133" y="543" width="40" height="296"/>
+  <object id="47" x="159" y="566" width="408" height="160"/>
+  <object id="54" x="1189" y="796" width="202" height="88"/>
+  <object id="55" x="25" y="20" width="1886" height="184"/>
+  <object id="56" x="1213" y="502" width="410" height="148"/>
+  <object id="63" x="5" y="18" width="18" height="1042"/>
+  <object id="65" x="36" y="1059" width="1610" height="20"/>
+  <object id="66" x="23" y="618" width="118" height="90"/>
+  <object id="67" x="1883" y="216" width="36" height="860"/>
+  <object id="68" x="1428" y="888" width="222" height="86"/>
+  <object id="69" name="WinBox" x="1648" y="1057" width="228" height="23"/>
+ </objectgroup>
+ <objectgroup id="4" name="Items">
+  <object id="57" gid="5" x="1242" y="786" width="128" height="128"/>
+  <object id="58" gid="4" x="248" y="426" width="128" height="128"/>
+  <object id="59" gid="3" x="224" y="952" width="128" height="128"/>
+  <object id="62" gid="2" x="888" y="714" width="128" height="128"/>
+ </objectgroup>
+</map>

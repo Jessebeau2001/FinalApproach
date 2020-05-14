@@ -37,8 +37,10 @@ namespace GXPEngine
 		public Player(float x, float y, Pickup[] itemList, HUDOverlay playerHUD) : base(100, 20)
 		{
 			this.itemList = itemList;
-			//inventory = new Inventory(invSize);
-			//AddChild(inventory);
+
+			_position.x = x;
+			_position.y = y;
+
 			playerSprite.SetOrigin(0, playerSprite.height);
 			scaleFactor = (width * 1f) / (playerSprite.width * 1f);
 			playerSprite.scale = scaleFactor;  //calculating and setting a scaling so that the player width will always be 100 pixels

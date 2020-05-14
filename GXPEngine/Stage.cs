@@ -5,7 +5,7 @@ namespace GXPEngine
 {
 	class Stage : Pivot
 	{
-		private string mapPath = "maps/test.tmx";
+		private string mapPath = "maps/map1.tmx";
 
 		Sprite background;
 		Player player;
@@ -16,19 +16,19 @@ namespace GXPEngine
 
 		public Stage() : base()
 		{
-			background = new Sprite("textures/mockupLevel_empty.png", false, false);
+			background = new Sprite("textures/room_decorated.png", false, false);
 
 			Map leveldata = MapParser.ReadMap(mapPath);
 			SpawnColliders(leveldata, true);
 
 			playerHUD = new HUDOverlay(player, _itemList);
-			player = new Player(100, 100, _itemList, playerHUD);
+			player = new Player(930, 930, _itemList, playerHUD);
 
-			AddChild(background);	//seperated the addChildren so we can set what render on top of what -Jesse
-			AddChild(player);
-			InitializeNPCs();
-			foreach (ColBox box in boundigBox) AddChild(box);
+			AddChild(background);   //seperated the addChildren so we can set what render on top of what -Jesse
 			foreach (Pickup item in _itemList) AddChild(item);
+			foreach (ColBox box in boundigBox) AddChild(box);
+			InitializeNPCs();
+			AddChild(player);
 			AddChild(playerHUD);
 		}
 
@@ -52,7 +52,7 @@ namespace GXPEngine
 					if (group.Objects == null || group.Objects.Length == 0) return;
 					foreach (TiledObject obj in group.Objects)
 					{
-						boundigBox[i] = new ColBox(Mathf.Round(obj.X), Mathf.Round(obj.Y), Mathf.Round(obj.Width), Mathf.Round(obj.Height), name: obj.Name);
+						boundigBox[i] = new ColBox(Mathf.Round(obj.X), Mathf.Round(obj.Y), Mathf.Round(obj.Width), Mathf.Round(obj.Height), showBounds: false ,name: obj.Name);
 						Console.WriteLine($"Initialized bounding box with name {obj.Name}");
 						i++;
 					}
