@@ -22,7 +22,7 @@ namespace GXPEngine
 			SpawnColliders(leveldata, true);
 
 			playerHUD = new HUDOverlay(player, _itemList);
-			player = new Player(100, 100, _itemList.Length, playerHUD);
+			player = new Player(100, 100, _itemList, playerHUD);
 
 			AddChild(background);	//seperated the addChildren so we can set what render on top of what -Jesse
 			AddChild(player);

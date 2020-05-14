@@ -28,15 +28,17 @@ namespace GXPEngine
 
 		bool squish = false;
 
-		public Inventory inventory;
+		Pickup[] itemList;
+		//public Inventory inventory;
 
 		AnimationSprite playerSprite = new AnimationSprite("textures/notAnimalCrossing.png", 3, 1, addCollider: false);
 		HUDOverlay playerHUD;
 
-		public Player(float x, float y, int invSize, HUDOverlay playerHUD) : base(100, 20)
+		public Player(float x, float y, Pickup[] itemList, HUDOverlay playerHUD) : base(100, 20)
 		{
-			inventory = new Inventory(invSize);
-			AddChild(inventory);
+			this.itemList = itemList;
+			//inventory = new Inventory(invSize);
+			//AddChild(inventory);
 			playerSprite.SetOrigin(0, playerSprite.height);
 			scaleFactor = (width * 1f) / (playerSprite.width * 1f);
 			playerSprite.scale = scaleFactor;  //calculating and setting a scaling so that the player width will always be 100 pixels
@@ -88,9 +90,9 @@ namespace GXPEngine
 			Console.WriteLine("Collided with GameObject: " + other.name);
 
 			if (other is Pickup) {
-				inventory.PickUp((other as Pickup).GetItemName());
+				//inventory.PickUp((other as Pickup).GetItemName());
 				playerHUD.shopList.checkItem((other as Pickup).itemIndex);
-				other.LateDestroy();
+				(other as Pickup).PickItUp();
 				return;
 			}
 
@@ -99,7 +101,14 @@ namespace GXPEngine
 				LateDestroy();
 			}
 
-			if (other is EasyDraw && other.name == "WinBox") return;
+			if (other is EasyDraw && other.name == "WinBox")
+			{
+				foreach (Pickup item in itemList)
+					if (item.isPickedUp == false)
+						return;
+					else
+						LateDestroy();
+			}
 
 			var ColInfo = collider.GetCollisionInfo(other.collider);
 			_position += ColInfo.normal * ColInfo.penetrationDepth;
@@ -127,8 +136,8 @@ namespace GXPEngine
 				SetState(">");
 			}
 
-			if (Input.GetKeyDown(Key.SPACE))
-				Console.WriteLine(inventory);
+			//if (Input.GetKeyDown(Key.SPACE))
+			//	Console.WriteLine(inventory);
 
 			force.Normalize();
 			force *= _speed;

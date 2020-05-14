@@ -11,6 +11,7 @@ namespace GXPEngine
 		private string _itemName;
 		private string _texturePath;
 		private int _itemIndex;
+		private bool _isPickedUp = false;
 
 		//public Pickup(float x, float y, int gid) : base("textures/grapes.png", false, true)
 		public Pickup(float x, float y, int gid, int itemIndex) : base(100, 100, true)
@@ -61,6 +62,12 @@ namespace GXPEngine
 			}
 		}
 
+		public void PickItUp()
+		{
+			_isPickedUp = true;
+			visible = false;
+		}
+
 		public string itemName
 		{
 			get { return _itemName; }
@@ -69,6 +76,11 @@ namespace GXPEngine
 		public int itemIndex
 		{
 			get { return _itemIndex; }
+		}
+
+		public bool isPickedUp
+		{
+			get { return _isPickedUp; }
 		}
 	}
 }
