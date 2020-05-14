@@ -48,6 +48,18 @@ public struct Vec2
 		return new Vec2(left.x + right.x, left.y + right.y);
 	}
 
+	public static bool operator ==(Vec2 left, Vec2 right)
+	{
+		if (left.x == right.x && left.y == right.y) return true;
+		return false;
+	}
+
+	public static bool operator !=(Vec2 left, Vec2 right)
+	{
+		if (left.x != right.x || left.y != right.y) return true;
+		return false;
+	}
+
 	public float Length()
 	{
 		return Mathf.Sqrt(Mathf.Pow(x, 2) + Mathf.Pow(y, 2));

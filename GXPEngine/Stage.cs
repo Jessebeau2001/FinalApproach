@@ -52,7 +52,8 @@ namespace GXPEngine
 					if (group.Objects == null || group.Objects.Length == 0) return;
 					foreach (TiledObject obj in group.Objects)
 					{
-						boundigBox[i] = new ColBox(Mathf.Round(obj.X), Mathf.Round(obj.Y), Mathf.Round(obj.Width), Mathf.Round(obj.Height));
+						boundigBox[i] = new ColBox(Mathf.Round(obj.X), Mathf.Round(obj.Y), Mathf.Round(obj.Width), Mathf.Round(obj.Height), name: obj.Name);
+						Console.WriteLine($"Initialized bounding box with name {obj.Name}");
 						i++;
 					}
 				}
@@ -73,11 +74,6 @@ namespace GXPEngine
 		private void InitializeNPCs()
 		{
 			testNPC = new NPC(900, 400);
-			//testNPC.SetMovePattern(movePattern);
-			AddChild(testNPC);
-
-			testNPC = new NPC(400, 600);
-			//testNPC.SetMovePattern(movePattern);
 			AddChild(testNPC);
 		}
 	}

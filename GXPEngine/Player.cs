@@ -85,6 +85,8 @@ namespace GXPEngine
 
 		void OnCollision(GameObject other)
 		{
+			Console.WriteLine("Collided with GameObject: " + other.name);
+
 			if (other is Pickup) {
 				inventory.PickUp((other as Pickup).GetItemName());
 				playerHUD.shopList.checkItem((other as Pickup).itemIndex);
@@ -97,10 +99,10 @@ namespace GXPEngine
 				LateDestroy();
 			}
 
+			if (other is EasyDraw && other.name == "WinBox") return;
+
 			var ColInfo = collider.GetCollisionInfo(other.collider);
 			_position += ColInfo.normal * ColInfo.penetrationDepth;
-
-			Console.WriteLine("Collided with GameObject: " + other.name);
 		}
 
 		private void Control()
