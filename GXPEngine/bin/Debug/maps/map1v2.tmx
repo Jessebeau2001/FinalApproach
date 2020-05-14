@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-down" width="28" height="32" tilewidth="16" tileheight="16" infinite="1" nextlayerid="6" nextobjectid="94">
+<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-down" width="28" height="32" tilewidth="16" tileheight="16" infinite="1" nextlayerid="6" nextobjectid="102">
  <tileset firstgid="1" name="testSet" tilewidth="128" tileheight="128" tilecount="4" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="1" type="cereal">
@@ -56,11 +56,11 @@
   </object>
   <object id="90" x="488" y="744">
    <properties>
-    <property name="spriteSheet" value="npc_0.png"/>
+    <property name="spriteSheet" value="npc_1.png"/>
    </properties>
    <polygon points="0,0 -320,0 -326,252 -4,246"/>
   </object>
-  <object id="93" x="110.667" y="384.667">
+  <object id="93" x="110.667" y="384.667" visible="0">
    <polygon points="0,0 512,-2 242.667,-1.33333"/>
   </object>
  </objectgroup>

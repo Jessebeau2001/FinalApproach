@@ -23,18 +23,20 @@ namespace GXPEngine
         int lastStartFrame;
         int timer = 0;
         int animSpeed = 200;
-        public NPC(float x, float y, string[] polyPoints, float speed = 1f) : base(50, 185)
+        public NPC(float x, float y, string[] polyPoints, string spriteName = null, float speed = 1f) : base(50, 185)
         {
             _position.x = Mathf.Round(x) - (width / 2);
             _position.y = Mathf.Round(y) - (height / 2);
             this.speed = speed;
 
+            if (spriteName == null) spriteName = "npc_0.png"; //Sets a default sprite if none was put in -Jesse
+
             SetOrigin(0, height / 2);
 
-            ShapeAlign(CenterMode.Min, CenterMode.Min);
-            Rect(0, 0, width, height);
+            //ShapeAlign(CenterMode.Min, CenterMode.Min);
+            //Rect(0, 0, width, height);
 
-            animSprite = new AnimationSprite("textures/spriteSheets/npc_0.png", 4, 4, -1, true, false); //starts frame is frame 0 -Jesse
+            animSprite = new AnimationSprite("textures/spriteSheets/" + spriteName, 4, 4, -1, true, false); //starts frame is frame 0 -Jesse
             float scaleFactor = (height * 1f) / (animSprite.height * 1f);
             animSprite.scale = scaleFactor;
             animSprite.y -= animSprite.height / 2;
@@ -75,7 +77,7 @@ namespace GXPEngine
             foreach (string polyPoint in polyPoints)
             {
                 destination.Add(_position + StringToVec(polyPoint));
-                Console.WriteLine($"Added destination {_position + StringToVec(polyPoint)}");
+                Console.WriteLine($"Added destination {_position + StringToVec(polyPoint)}"); //keep this for game initialization -Jesse
             }
         }
 
@@ -129,8 +131,8 @@ namespace GXPEngine
         void PlayAnim()
         {
             animSprite.NextFrame();
-            Console.WriteLine($"Startframe: {startFrame} Currentframe: {animSprite.currentFrame}");
-            Console.WriteLine($"if currentFrame {animSprite.currentFrame} > {startFrame + 3}");
+            //Console.WriteLine($"Startframe: {startFrame} Currentframe: {animSprite.currentFrame}");
+            //Console.WriteLine($"if currentFrame {animSprite.currentFrame} > {startFrame + 3}");
             if (animSprite.currentFrame > startFrame + 3)
                 animSprite.SetFrame(startFrame);
 

@@ -9,7 +9,6 @@ namespace GXPEngine
 		private string mapPath = "maps/map1v2.tmx";
 		//private string mapPath = "maps/test.tmx";
 
-
 		Sprite background;
 		Player player;
 		ColBox[] boundigBox;
@@ -80,12 +79,22 @@ namespace GXPEngine
 					{
 						Console.WriteLine($"Loading in NPC {enemies.Count}...");
 						if (obj.polygon == null) throw new Exception("Object with ID: " + obj.ID + " was not a polygon");
+
 						string[] polyPoints = obj.polygon.points.Split(new char[] {' '});
-						enemies.Add(new NPC(obj.X, obj.Y, polyPoints, 2)); 
+						enemies.Add(new NPC(obj.X, obj.Y, polyPoints, SpritePath(obj.propertyList), 2));
 					}
 
 				}
 			}
+		}
+
+		string SpritePath(PropertyList pList)
+		{
+			if (pList == null) return null;
+			foreach (Property property in pList.properties)
+				if (property.Name == "spriteSheet")
+					return property.Value;
+			return null;
 		}
 
 		private string TextThing(string text)
