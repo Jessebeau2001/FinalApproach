@@ -13,19 +13,26 @@ namespace GXPEngine
 		private int _itemIndex;
 		private bool _isPickedUp = false;
 
-		//public Pickup(float x, float y, int gid) : base("textures/grapes.png", false, true)
 		public Pickup(float x, float y, int gid, int itemIndex) : base(100, 100, true)
 		{
 			this.x = x;
 			this.y = y;
+
+			
 			_itemIndex = itemIndex;
 
-			Rect(x, y, width, height);
+			ShapeAlign(CenterMode.Min, CenterMode.Min);
+
 			SetProperties(gid);
 
 			Sprite sprite = new Sprite(_texturePath, true, false);
+			this.y -= sprite.height;
+			sprite.width = width;
+			sprite.height = height;
 			AddChild(sprite);
-			//scale = .2f;
+
+			//Rect(0, 0, width, height);
+			//Console.WriteLine($"Spawned pickup at X: {this.x} Y: {this.y}");
 		}
 
 		public string GetItemName()
@@ -33,7 +40,7 @@ namespace GXPEngine
 			return _itemName;
 		}
 
-		private void SetProperties(int gid) //for some reason first GID starts at 2 ?? so we do - 1 in the variable
+		private void SetProperties(int gid) //for some reason first GID starts at 2 ?? so we do - 1 in the variable -Jesse
 		{
 			this.gid = gid - 1;
 			Console.WriteLine("Loading Item with ID: " + this.gid);

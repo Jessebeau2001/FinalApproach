@@ -340,7 +340,7 @@ namespace TiledMapParser
 		public string Name;
 		[XmlElement("object")]
 		public TiledObject[] Objects;
-		[XmlAttribute("id")] //added this one cuz why not
+		[XmlAttribute("id")] //added this one cuz why not -Jesse
 		public int id;
 
 		override public string ToString() {
@@ -384,7 +384,20 @@ namespace TiledMapParser
 		}
 	}
 
-	[XmlRootAttribute("object")]
+	//----------------------------------- added this one myself (By Jesse Visscher)
+	[XmlRootAttribute("polygon")]
+	public class Polygon
+	{
+		[XmlAttribute("points")]
+		public string points;
+
+		override public string ToString()
+		{
+			return points;
+		}
+	}
+	//-----------------------------------
+
 	public class TiledObject : PropertyContainer {
 		[XmlAttribute("id")]
 		public int ID;
@@ -405,6 +418,8 @@ namespace TiledMapParser
 		//----------------------------------- added this one myself (By Jesse Visscher)
 		[XmlAttribute("rotation")]
 		public float Rotation;
+		[XmlElement("polygon")]
+		public Polygon polygon;
 		//-----------------------------------
 		[XmlElement("text")]
 		public Text textField;

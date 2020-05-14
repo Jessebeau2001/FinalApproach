@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using TiledMapParser;
 
 namespace GXPEngine
@@ -6,19 +7,20 @@ namespace GXPEngine
 	class Stage : Pivot
 	{
 		private string mapPath = "maps/map1.tmx";
+		//private string mapPath = "maps/test.tmx";
+
 
 		Sprite background;
 		Player player;
 		ColBox[] boundigBox;
 		Pickup[] _itemList;
-		NPC testNPC;
+		ArrayList enemies = new ArrayList();
 		HUDOverlay playerHUD;
 
 		public Stage() : base()
 		{
-			background = new Sprite("textures/room_decorated.png", false, false);
-
 			Map leveldata = MapParser.ReadMap(mapPath);
+			background = new Sprite("textures/" + leveldata.ImageLayers[0].Image.FileName, false, false);
 			SpawnColliders(leveldata, true);
 
 			playerHUD = new HUDOverlay(player, _itemList);
@@ -27,7 +29,7 @@ namespace GXPEngine
 			AddChild(background);   //seperated the addChildren so we can set what render on top of what -Jesse
 			foreach (Pickup item in _itemList) AddChild(item);
 			foreach (ColBox box in boundigBox) AddChild(box);
-			InitializeNPCs();
+			foreach (NPC enemy in enemies) AddChild(enemy);
 			AddChild(player);
 			AddChild(playerHUD);
 		}
@@ -52,11 +54,12 @@ namespace GXPEngine
 					if (group.Objects == null || group.Objects.Length == 0) return;
 					foreach (TiledObject obj in group.Objects)
 					{
-						boundigBox[i] = new ColBox(Mathf.Round(obj.X), Mathf.Round(obj.Y), Mathf.Round(obj.Width), Mathf.Round(obj.Height), showBounds: false ,name: obj.Name);
-						Console.WriteLine($"Initialized bounding box with name {obj.Name}");
+						Console.WriteLine($"Creating Bounding box {TextThing(obj.Name)} | X: {Mathf.Round(obj.X)}, Y: {Mathf.Round(obj.Y)} with sizeX: {Mathf.Round(obj.Width)} and sizeY: {Mathf.Round(obj.Height)}");
+						boundigBox[i] = new ColBox(Mathf.Round(obj.X), Mathf.Round(obj.Y), Mathf.Round(obj.Width), Mathf.Round(obj.Height), showBounds: true ,name: obj.Name);
 						i++;
 					}
 				}
+
 				if (group.Name == "Items")
 				{
 					_itemList = new Pickup[group.Objects.Length];
@@ -65,16 +68,36 @@ namespace GXPEngine
 					foreach (TiledObject obj in group.Objects)
 					{
 						_itemList[i] = new Pickup(Mathf.Round(obj.X), Mathf.Round(obj.Y), obj.GID, i);
+						Console.WriteLine($"{obj.X}, {obj.Y}");
 						i++;
 					}
+				}
+
+				if (group.Name == "NPCs")
+				{
+					if (group.Objects == null || group.Objects.Length == 0) return;
+					foreach (TiledObject obj in group.Objects)
+					{
+						string[] polyPoints = obj.polygon.points.Split(new char[] {' '});
+						enemies.Add(new NPC(obj.X, obj.Y, polyPoints, 2)); 
+					}
+
 				}
 			}
 		}
 
-		private void InitializeNPCs()
+		private string TextThing(string text)
 		{
-			testNPC = new NPC(900, 400);
-			AddChild(testNPC);
+			if (text == null) return "";
+			string newString;
+			if (text.Length < 8)
+				newString = text + "\t \t";
+			else if (text.Length < 16)
+				newString = text + "\t";
+			else
+				newString = text + "\t";
+			return newString;
+			//int count = (int)Math.Round(24f / text.Length);
 		}
 	}
 }

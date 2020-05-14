@@ -80,7 +80,6 @@ namespace GXPEngine
 				squish = !squish;
 			}
 
-
 			if (x < 0 || x > game.width || y < 0 || y > game.height)
 				_position = prevPos;
 
