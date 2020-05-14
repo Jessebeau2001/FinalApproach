@@ -1,4 +1,8 @@
-﻿namespace GXPEngine
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+
+namespace GXPEngine
 {
     class NPC : EasyDraw
     {
@@ -16,9 +20,9 @@
         private Vec2 _velocity;
         private Vec2 _position;
 
-        string[] movePattern;
+        List<string> movePattern = new List<string>();
 
-        string animState = "v";
+		string animState = "v";
 
         private int d = 1;
 
@@ -32,14 +36,17 @@
 
             _position.x = x;
             _position.y = y;
+
+            //movePattern = new string[5];
+
+			foreach (string text in movePattern)
+				Console.WriteLine($"The string is '{text}'");
         }
 
         public void Update()
         {
             if (movePattern != null)
             {
-                MovementDirection();
-
                 movementController();
             }
             x = _position.x;
@@ -55,7 +62,15 @@
             }
         }
 
-        public void OnCollision(GameObject other)
+        void InitializeMovePattern()
+		{
+			movePattern.Add(">");
+			movePattern.Add("v");
+			movePattern.Add("<");
+			movePattern.Add("^");
+		}
+
+		public void OnCollision(GameObject other)
         {
             if (other is EasyDraw && other.name == "colBox")
             {
@@ -67,51 +82,52 @@
             }
         }
 
-        public void SetMovePattern(string[] setMovePattern)
-        {
-            for (int i = 0; i == setMovePattern.Length; i++)
-            {
-                movePattern[i] = setMovePattern[i];
-            }
-        }
 
-        public string[] GetMovePattern()
+        private void CheckPattern()
         {
-            //Console.WriteLine("The current pattern is: ");
-            //for (int i = 0; i == setMovePattern.Length; i++)
+            switch (movePattern[0])
+			{
+				case ">":
+					x++;
+					break;
+				case "<":
+					x--;
+					break;
+				case "v":
+					y++;
+					break;
+				case "^":
+					y--;
+					break;
+
+			}
+		}
+
+
+            //for (int i = 0; i == movePattern.Length; i++)
             //{
-            //    Console.WriteLine(setMovePattern[i]);
+            //    for (int o = 0; o >= 60; o += o / Time.deltaTime)
+            //    {
+            //        string direction = movePattern[i];
+            //
+            //        switch (direction)
+            //        {
+            //            case "U":
+            //                _force.y -= 1;
+            //                break;
+            //            case "D":
+            //                _force.y += 1;
+            //                break;
+            //            case "L":
+            //                _force.x -= 1;
+            //                break;
+            //            case "R":
+            //                _force.x += 1;
+            //                break;
+            //        }
+            //    }
             //}
-
-            return movePattern;
-        }
-
-        private void MovementDirection()
-        {
-            for (int i = 0; i == movePattern.Length; i++)
-            {
-                for (int o = 0; o >= 60; o += o/Time.deltaTime)
-                {
-                    string direction = movePattern[i];
-
-                    switch (direction)
-                    {
-                        case "U":
-                            _force.y -= 1;
-                            break;
-                        case "D":
-                            _force.y += 1;
-                            break;
-                        case "L":
-                            _force.x -= 1;
-                            break;
-                        case "R":
-                            _force.x += 1;
-                            break;
-                    }
-                }
-            }
-        }
+            //}
 
 
         private void movementController()
@@ -151,6 +167,11 @@
                     NPCSprite.SetFrame(1);
                     break;
             }
+        }
+
+        public List<string> GetMovePattern()
+        {
+            return movePattern;
         }
     }
 }

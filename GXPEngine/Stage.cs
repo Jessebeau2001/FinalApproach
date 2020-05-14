@@ -72,16 +72,12 @@ namespace GXPEngine
 
 		private void InitializeNPCs()
 		{
-			string[] movePattern;
-
 			testNPC = new NPC(900, 400);
-			movePattern = new string[] { "L", "R" };
-			testNPC.SetMovePattern(movePattern);
+			//testNPC.SetMovePattern(movePattern);
 			AddChild(testNPC);
 
 			testNPC = new NPC(400, 600);
-			movePattern = new string[] { "U", "D" };
-			testNPC.SetMovePattern(movePattern);
+			//testNPC.SetMovePattern(movePattern);
 			AddChild(testNPC);
 		}
 	}
