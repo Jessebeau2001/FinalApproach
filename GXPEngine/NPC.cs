@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using TiledMapParser;
 
 namespace GXPEngine
 {
@@ -20,19 +18,30 @@ namespace GXPEngine
         List<Vec2> destination = new List<Vec2>();
         int patternIndex = 1;
 
-        public NPC(float x, float y, string[] polyPoints, float speed = 1f) : base(97, 28)
+        AnimationSprite animSprite;
+        int startFrame;
+        int lastStartFrame;
+        int timer = 0;
+        int animSpeed = 200;
+        public NPC(float x, float y, string[] polyPoints, float speed = 1f) : base(50, 185)
         {
-            _position.x = Mathf.Round(x);
-            _position.y = Mathf.Round(y);
+            _position.x = Mathf.Round(x) - (width / 2);
+            _position.y = Mathf.Round(y) - (height / 2);
             this.speed = speed;
 
-            Sprite NPCSprite = new Sprite("textures/silhoutte.png", false, false);
-            NPCSprite.y -= NPCSprite.height - height;
-            AddChild(NPCSprite);
+            SetOrigin(0, height / 2);
+
+            ShapeAlign(CenterMode.Min, CenterMode.Min);
+            Rect(0, 0, width, height);
+
+            animSprite = new AnimationSprite("textures/spriteSheets/npc_0.png", 4, 4, -1, true, false); //starts frame is frame 0 -Jesse
+            float scaleFactor = (height * 1f) / (animSprite.height * 1f);
+            animSprite.scale = scaleFactor;
+            animSprite.y -= animSprite.height / 2;
+            animSprite.x -= width / 2;
+            AddChild(animSprite);
 
             InitializePattern(polyPoints);
-            foreach (Vec2 pos in destination)
-                Console.WriteLine(pos);
         }
 
         public void Update()
@@ -44,6 +53,13 @@ namespace GXPEngine
             y = _position.y;
 
             UpdatePattern();
+            SetAnimState();
+            timer -= Time.deltaTime;
+            if (timer < 0)
+            {
+                PlayAnim();
+                timer += animSpeed;
+            }
         }
 
         Vec2 StringToVec(string points)
@@ -66,8 +82,8 @@ namespace GXPEngine
         void UpdatePattern()
         {
             if (patternIndex > destination.Count  - 1) patternIndex = 0;
-            Console.WriteLine($"Heading towards {destination[patternIndex]}, Curently at {_position}");
-            Console.WriteLine($"But should be OK if in between {destination[patternIndex] - new Vec2(20, 20)} and {destination[patternIndex] + new Vec2(20, 20)}");
+            //Console.WriteLine($"Heading towards {destination[patternIndex]}, Curently at {_position}");
+            //Console.WriteLine($"But should be OK if in between {destination[patternIndex] - new Vec2(20, 20)} and {destination[patternIndex] + new Vec2(20, 20)}");
 
             _force.x = destination[patternIndex].x - _position.x;
             _force.y = destination[patternIndex].y - _position.y;
@@ -80,9 +96,46 @@ namespace GXPEngine
                     patternIndex++; 
         }
 
-        void AnimHandler()
+        void SetAnimState()
         {
-           
+            if (Mathf.Abs(_force.x) > Mathf.Abs(_force.y))
+            {
+                switch (Mathf.Sign(_force.x))
+                {
+                    case 1:
+                        startFrame = 8;
+                        break;
+                    case -1:
+                        startFrame = 12;
+                        break;
+                }
+            } else {
+                switch (Mathf.Sign(_force.y))
+                {
+                    case 1:
+                        startFrame = 4;
+                        break;
+                    case -1:
+                        startFrame = 0;
+                        break;
+                }
+            }
+
+            if (startFrame != lastStartFrame) animSprite.SetFrame(startFrame);
+            lastStartFrame = startFrame;
+            //Console.WriteLine($"Vec2: {_force} SignX: ({Mathf.Sign(_force.x)}), SignY: ({Mathf.Sign(_force.y)})");
+        }
+
+        void PlayAnim()
+        {
+            animSprite.NextFrame();
+            Console.WriteLine($"Startframe: {startFrame} Currentframe: {animSprite.currentFrame}");
+            Console.WriteLine($"if currentFrame {animSprite.currentFrame} > {startFrame + 3}");
+            if (animSprite.currentFrame > startFrame + 3)
+                animSprite.SetFrame(startFrame);
+
+            if (animSprite.currentFrame == 0 && startFrame == 12) //special case for frame '16' which doesnt exist and becomes 0 -Jesse
+                animSprite.SetFrame(startFrame);
         }
 
         public List<Vec2> GetMovePattern()

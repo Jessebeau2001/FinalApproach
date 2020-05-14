@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace GXPEngine
 {
@@ -29,7 +26,6 @@ namespace GXPEngine
 		bool squish = false;
 
 		Pickup[] itemList;
-		//public Inventory inventory;
 
 		AnimationSprite playerSprite = new AnimationSprite("textures/notAnimalCrossing.png", 3, 1, addCollider: false);
 		HUDOverlay playerHUD;

@@ -43,7 +43,7 @@ namespace GXPEngine
 		private void SetProperties(int gid) //for some reason first GID starts at 2 ?? so we do - 1 in the variable -Jesse
 		{
 			this.gid = gid - 1;
-			Console.WriteLine("Loading Item with ID: " + this.gid);
+			Console.WriteLine($"Loading Item with ID: {this.gid} at X: {x}, Y: {y}");
 			switch (this.gid)
 			{
 				default:

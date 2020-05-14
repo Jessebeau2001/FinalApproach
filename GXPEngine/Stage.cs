@@ -6,7 +6,7 @@ namespace GXPEngine
 {
 	class Stage : Pivot
 	{
-		private string mapPath = "maps/map1.tmx";
+		private string mapPath = "maps/map1v2.tmx";
 		//private string mapPath = "maps/test.tmx";
 
 
@@ -46,6 +46,7 @@ namespace GXPEngine
 
 			foreach (ObjectGroup group in leveldata.ObjectGroups)
 			{
+				Console.WriteLine("--------------------------------------------------------------------------");
 				Console.WriteLine("Loading object group '" + group.Name + "' with group ID '" + group.id + "'");
 				if (group.Name == "WallColliders")
 				{
@@ -55,7 +56,7 @@ namespace GXPEngine
 					foreach (TiledObject obj in group.Objects)
 					{
 						Console.WriteLine($"Creating Bounding box {TextThing(obj.Name)} | X: {Mathf.Round(obj.X)}, Y: {Mathf.Round(obj.Y)} with sizeX: {Mathf.Round(obj.Width)} and sizeY: {Mathf.Round(obj.Height)}");
-						boundigBox[i] = new ColBox(Mathf.Round(obj.X), Mathf.Round(obj.Y), Mathf.Round(obj.Width), Mathf.Round(obj.Height), showBounds: true ,name: obj.Name);
+						boundigBox[i] = new ColBox(Mathf.Round(obj.X), Mathf.Round(obj.Y), Mathf.Round(obj.Width), Mathf.Round(obj.Height),name: obj.Name);
 						i++;
 					}
 				}
@@ -68,7 +69,6 @@ namespace GXPEngine
 					foreach (TiledObject obj in group.Objects)
 					{
 						_itemList[i] = new Pickup(Mathf.Round(obj.X), Mathf.Round(obj.Y), obj.GID, i);
-						Console.WriteLine($"{obj.X}, {obj.Y}");
 						i++;
 					}
 				}
@@ -78,6 +78,8 @@ namespace GXPEngine
 					if (group.Objects == null || group.Objects.Length == 0) return;
 					foreach (TiledObject obj in group.Objects)
 					{
+						Console.WriteLine($"Loading in NPC {enemies.Count}...");
+						if (obj.polygon == null) throw new Exception("Object with ID: " + obj.ID + " was not a polygon");
 						string[] polyPoints = obj.polygon.points.Split(new char[] {' '});
 						enemies.Add(new NPC(obj.X, obj.Y, polyPoints, 2)); 
 					}
@@ -97,7 +99,6 @@ namespace GXPEngine
 			else
 				newString = text + "\t";
 			return newString;
-			//int count = (int)Math.Round(24f / text.Length);
 		}
 	}
 }
