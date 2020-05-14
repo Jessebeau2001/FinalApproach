@@ -5,8 +5,8 @@ using GXPEngine;								// GXPEngine contains the engine
 public class MyGame : Game
 {
 	Stage stage;
-	public MyGame() : base(1920, 1080, false, true)
-	//public MyGame() : base(1920, 1080, false, true, 1360,720)
+	//public MyGame() : base(1920, 1080, false, true)
+	public MyGame() : base(1920, 1080, false, true, 1360,720)
 	{
 		stage = new Stage();
 		AddChild(stage);

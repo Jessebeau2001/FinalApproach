@@ -36,12 +36,16 @@ namespace GXPEngine
 
 		private void InitializeNPCs()
 		{
+			string[] movePattern;
+
 			testNPC = new NPC(900, 400);
-			testNPC.SetMovementPattern("LR"); //LR = LeftRight, UD = UpDown, SQ = Square
+			movePattern = new string[] { "L", "R" };
+			testNPC.SetMovePattern(movePattern);
 			AddChild(testNPC);
 
 			testNPC = new NPC(400, 600);
-			testNPC.SetMovementPattern("UD");
+			movePattern = new string[] { "U", "D" };
+			testNPC.SetMovePattern(movePattern);
 			AddChild(testNPC);
 		}
 	}

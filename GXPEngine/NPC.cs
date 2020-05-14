@@ -3,6 +3,8 @@ using GXPEngine.Managers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Runtime.CompilerServices;
 using System.Security.Principal;
 using System.Text;
 
@@ -10,8 +12,6 @@ namespace GXPEngine
 {
     class NPC : EasyDraw
     {
-        string _movePattern;
-
         float _speed = 0.4f;
 
         public Vec2 position
@@ -26,7 +26,7 @@ namespace GXPEngine
         private Vec2 _velocity;
         private Vec2 _position;
 
-        Vec2 prevPos;
+        string[] movePattern;
 
         string animState = "v";
 
@@ -46,15 +46,12 @@ namespace GXPEngine
 
         public void Update()
         {
-            determineMovementPattern();
+            if (movePattern != null)
+            {
+                MovementDirection();
 
-            movementController();
-            //if(_moveTime <= 0)
-            //{
-            //    _moveTime = _moveTimeMax;
-            //}
-            //_moveTime -= Time.deltaTime / 10;
-
+                movementController();
+            }
             x = _position.x;
             y = _position.y;
 
@@ -80,114 +77,52 @@ namespace GXPEngine
             }
         }
 
-        public string GetMovementPattern()
+        public void SetMovePattern(string[] setMovePattern)
         {
-            return _movePattern;
-        }
-
-        public void SetMovementPattern(string newMP)
-        {
-            _movePattern = newMP;
-        }
-
-        private void determineMovementPattern()
-        {
-            switch (GetMovementPattern())
+            for (int i = 0; i == setMovePattern.Length; i++)
             {
-                case "LR":
-                    movementPatternLeftRight();
-                    break;
-                case "UD":
-                    movementPatternUpDown();
-                    break;
-                case "SQ":
-                    movementPatternSquare();
-                    break;
+                movePattern[i] = setMovePattern[i];
             }
         }
 
-        private void movementPatternLeftRight()
+        public string[] GetMovePattern()
         {
-            //int c = 0;
-            //if(c == 0)
+            //Console.WriteLine("The current pattern is: ");
+            //for (int i = 0; i == setMovePattern.Length; i++)
             //{
-            //    c = 1;
+            //    Console.WriteLine(setMovePattern[i]);
             //}
 
-            //if(_moveTime < _moveTimeMax/2)
-            //{
-            //    c = -c;
-            //}
+            return movePattern;
+        }
 
-            //switch (c)
-            //{
-            //    case 1:
-            //        MoveUntilCollision(_speed, 0);
-
-            //        break;
-            //    case -1:
-            //        MoveUntilCollision(-_speed, 0);
-            //        break;
-            //}
-
-            switch (d)
+        private void MovementDirection()
+        {
+            for (int i = 0; i == movePattern.Length; i++)
             {
-                case 1:
-                    _force.x += _speed;
-                    break;
-                case -1:
-                    _force.x -= _speed;
-                    break;                    
+                for (int o = 0; o >= 60; o += o/Time.deltaTime)
+                {
+                    string direction = movePattern[i];
+
+                    switch (direction)
+                    {
+                        case "U":
+                            _force.y -= 1;
+                            break;
+                        case "D":
+                            _force.y += 1;
+                            break;
+                        case "L":
+                            _force.x -= 1;
+                            break;
+                        case "R":
+                            _force.x += 1;
+                            break;
+                    }
+                }
             }
         }
 
-        private void movementPatternUpDown()
-        {
-            //int c = 0;
-            //if (c == 0)
-            //{
-            //    c = 1;
-            //}
-
-            //if (_moveTime < _moveTimeMax / 2)
-            //{
-            //    c = -c;
-            //}
-
-            //switch (c)
-            //{
-            //    case 1:
-            //        Move(0, _speed);
-            //        break;
-            //    case -1:
-            //        Move(0, -_speed);
-            //        break;
-            //}
-
-            switch (d)
-            {
-                case 1:
-                    _force.y += _speed;
-                    break;
-                case -1:
-                    _force.y -= _speed;
-                    break;
-            }
-        }
-        private void movementPatternSquare()
-        {
-            //if(_moveTime <= _moveTimeMax && _moveTime + 1 >= (_moveTimeMax/4) * 3)
-            //        Move(_speed, 0); //right
-
-            //else if(_moveTime <= (_moveTimeMax/4) * 3 && _moveTime + 1 >= _moveTimeMax/2)
-            //        Move(0, -_speed); //up
-
-            //else if(_moveTime <= _moveTimeMax/2 && _moveTime + 1 >= _moveTimeMax/4)
-            //        Move(-_speed, 0); //left
-
-            //else if(_moveTime <= _moveTimeMax/4 && _moveTime >= 0)
-            //        Move(0, _speed); //down
-        }
 
         private void movementController()
         {
