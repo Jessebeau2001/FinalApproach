@@ -52,6 +52,9 @@
    <polygon points="12,8 632.667,9.33333 772.667,124.667 771.333,488.667 171.333,496 172,406 614,404 609.333,186 200.667,188.667 201.333,96 20.6667,97.3333"/>
   </object>
   <object id="89" x="644" y="284">
+   <properties>
+    <property name="spriteSheet" value="npc_1.png"/>
+   </properties>
    <polygon points="290,2 0,0 -10,712 -2,4"/>
   </object>
   <object id="90" x="488" y="744">

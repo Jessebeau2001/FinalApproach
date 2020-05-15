@@ -30,7 +30,7 @@ namespace GXPEngine
 		AnimationSprite playerSprite = new AnimationSprite("textures/notAnimalCrossing.png", 3, 1, addCollider: false);
 		HUDOverlay playerHUD;
 
-		public Player(float x, float y, Pickup[] itemList, HUDOverlay playerHUD) : base(100, 20)
+		public Player(float x, float y, Pickup[] itemList, HUDOverlay playerHUD, bool showBounds = false) : base(100, 20)
 		{
 			this.itemList = itemList;
 
@@ -42,11 +42,11 @@ namespace GXPEngine
 			playerSprite.scale = scaleFactor;  //calculating and setting a scaling so that the player width will always be 100 pixels
 			playerSprite.y += height;
 			AddChild(playerSprite);
-			
 			ShapeAlign(CenterMode.Min, CenterMode.Min);
 			NoFill();
 			Stroke(245, 66, 66);
-			Rect(0, 0, width - 1, height - 1);
+			if (showBounds)
+				Rect(0, 0, width - 1, height - 1);
 
 			this.playerHUD = playerHUD;
 		}

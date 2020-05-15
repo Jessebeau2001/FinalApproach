@@ -80,8 +80,7 @@ namespace GXPEngine
 						Console.WriteLine($"Loading in NPC {enemies.Count}...");
 						if (obj.polygon == null) throw new Exception("Object with ID: " + obj.ID + " was not a polygon");
 
-						string[] polyPoints = obj.polygon.points.Split(new char[] {' '});
-						enemies.Add(new NPC(obj.X, obj.Y, polyPoints, SpritePath(obj.propertyList), 2));
+						enemies.Add(new NPC(obj.X, obj.Y, obj.polygon.GetPolyPoints(), SpritePath(obj.propertyList), 2));
 					}
 
 				}
@@ -97,7 +96,7 @@ namespace GXPEngine
 			return null;
 		}
 
-		private string TextThing(string text)
+		private string TextThing(string text) //For calculating tabs in Console useless but fun -Jesse
 		{
 			if (text == null) return "";
 			string newString;

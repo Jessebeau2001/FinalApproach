@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GXPEngine;
+using System;
 using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
@@ -390,6 +391,22 @@ namespace TiledMapParser
 	{
 		[XmlAttribute("points")]
 		public string points;
+
+		public Vec2[] GetPolyPoints()
+		{
+			string[] polyCoords = points.Split(new char[] { ' ' });
+			Vec2[] _polypoints = new Vec2[polyCoords.Length];
+			for (int i = 0; i < polyCoords.Length; i++)
+			{
+				string[] xy = polyCoords[i].Split(new char[] { ',' });
+				//foreach(string point in xy) This dont work for some reason -Jesse
+				//	point.Replace(".", ",");
+				xy[0] = xy[0].Replace(".", ",");
+				xy[1] = xy[1].Replace(".", ",");
+				_polypoints[i] = new Vec2(Mathf.Round(float.Parse(xy[0])), Mathf.Round(float.Parse(xy[1])));
+			}
+			return _polypoints;
+		}
 
 		override public string ToString()
 		{

@@ -23,7 +23,7 @@ namespace GXPEngine
         int lastStartFrame;
         int timer = 0;
         int animSpeed = 200;
-        public NPC(float x, float y, string[] polyPoints, string spriteName = null, float speed = 1f) : base(50, 185)
+        public NPC(float x, float y, Vec2[] polyPoints, string spriteName = null, float speed = 1f) : base(50, 185)
         {
             _position.x = Mathf.Round(x) - (width / 2);
             _position.y = Mathf.Round(y) - (height / 2);
@@ -64,20 +64,12 @@ namespace GXPEngine
             }
         }
 
-        Vec2 StringToVec(string points)
+        void InitializePattern(Vec2[] polyPoints)
         {
-            string[] xy = points.Split(new char[] {','});
-            for (int i = 0; i < xy.Length; i++)
-                xy[i] = xy[i].Replace(".", ",");
-            return new Vec2(Mathf.Round(float.Parse(xy[0])), Mathf.Round(float.Parse(xy[1])));
-        }
-
-        void InitializePattern(string[] polyPoints)
-        {
-            foreach (string polyPoint in polyPoints)
+            foreach (Vec2 point in polyPoints)
             {
-                destination.Add(_position + StringToVec(polyPoint));
-                Console.WriteLine($"Added destination {_position + StringToVec(polyPoint)}"); //keep this for game initialization -Jesse
+                destination.Add(_position + point);
+                Console.WriteLine($"Added destination {_position + point}"); //keep this for game initialization -Jesse
             }
         }
 

@@ -79,7 +79,6 @@
     <Compile Include="Player.cs" />
     <Compile Include="ShopList.cs" />
     <Compile Include="Stage.cs" />
-    <Compile Include="StageColliders.cs" />
     <Compile Include="Vec2.cs" />
   </ItemGroup>
   <ItemGroup />

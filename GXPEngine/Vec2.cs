@@ -12,16 +12,26 @@ public struct Vec2
 		this.x = x;
 		this.y = y;
 	}
+	public override string ToString()
+	{
+		return String.Format("(X: {0}, Y: {1})", x, y);
+	}
+
+	public override bool Equals(object obj)
+	{
+		return base.Equals(obj);
+	}
+
+	public override int GetHashCode()
+	{
+		return base.GetHashCode();
+	}
 
 	public static Vec2 operator+ (Vec2 left, Vec2 right)
 	{
 		return new Vec2(left.x + right.x, left.y + right.y);
 	}
 
-	public override string ToString()
-	{
-		return String.Format("(X: {0}, Y: {1})", x, y);
-	}
 
 	public static Vec2 operator- (Vec2 left, Vec2 right)
 	{

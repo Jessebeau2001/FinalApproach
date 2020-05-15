@@ -14,7 +14,12 @@ public class MyGame : Game
 
     void Update()
 	{
-
+		if (Input.GetKeyDown(Key.SPACE))
+		{
+			stage.LateDestroy();
+			stage = new Stage();
+			AddChild(stage);
+		}
 	}
 
 	static void Main()
