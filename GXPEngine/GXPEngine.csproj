@@ -37,9 +37,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ColBox.cs" />
-    <Compile Include="HUDElement.cs" />
+    <Compile Include="UIElement.cs" />
     <Compile Include="HUDOverlay.cs" />
     <Compile Include="Inventory.cs" />
+    <Compile Include="Menu.cs" />
     <Compile Include="MyGame.cs" />
     <Compile Include="GXPEngine\Canvas.cs" />
     <Compile Include="GXPEngine\Game.cs" />

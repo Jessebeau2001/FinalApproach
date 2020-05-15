@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using TiledMapParser;
+using System.Linq;
 
 namespace GXPEngine
 {
@@ -15,6 +16,7 @@ namespace GXPEngine
 		Pickup[] _itemList;
 		ArrayList enemies = new ArrayList();
 		HUDOverlay playerHUD;
+		Sprite winMark = new Sprite("textures/exlMoji.png", false, false);
 
 		public Stage() : base()
 		{
@@ -23,20 +25,24 @@ namespace GXPEngine
 			SpawnColliders(leveldata, true);
 
 			playerHUD = new HUDOverlay(player, _itemList);
-			player = new Player(930, 930, _itemList, playerHUD);
+			player = new Player(930, 930, _itemList, playerHUD, this);
 
-			AddChild(background);   //seperated the addChildren so we can set what render on top of what -Jesse
+			AddChild(background);   //seperated the addChildren so we can set what renders on top of what -Jesse
 			foreach (Pickup item in _itemList) AddChild(item);
 			foreach (ColBox box in boundigBox) AddChild(box);
 			foreach (NPC enemy in enemies) AddChild(enemy);
 			AddChild(player);
 			AddChild(playerHUD);
+			AddChild(winMark);
 		}
 
 		public void Update()
 		{
 			if (Input.GetKeyDown(Key.SPACE))
 				playerHUD.shopList.checkItem(0);
+
+			if (_itemList.All(_itemList => _itemList.isPickedUp))
+				winMark.visible = true;
 		}
 
 		void SpawnColliders(Map leveldata, bool showBounds)
@@ -55,8 +61,16 @@ namespace GXPEngine
 					foreach (TiledObject obj in group.Objects)
 					{
 						Console.WriteLine($"Creating Bounding box {TextThing(obj.Name)} | X: {Mathf.Round(obj.X)}, Y: {Mathf.Round(obj.Y)} with sizeX: {Mathf.Round(obj.Width)} and sizeY: {Mathf.Round(obj.Height)}");
-						boundigBox[i] = new ColBox(Mathf.Round(obj.X), Mathf.Round(obj.Y), Mathf.Round(obj.Width), Mathf.Round(obj.Height),name: obj.Name);
+						boundigBox[i] = new ColBox(Mathf.Round(obj.X), Mathf.Round(obj.Y), Mathf.Round(obj.Width), Mathf.Round(obj.Height), name: obj.Name);
 						i++;
+
+						if (obj.Name == "WinBox")
+						{
+							winMark.scale = .5f;
+							winMark.x = obj.X + (obj.Width / 2) - (winMark.width / 2);
+							winMark.y = obj.Y + (obj.Height / 2) - (winMark.height / 2);
+							winMark.visible = false;
+						}
 					}
 				}
 
@@ -107,6 +121,18 @@ namespace GXPEngine
 			else
 				newString = text + "\t";
 			return newString;
+		}
+
+		public void WinGame()
+		{
+			(parent as MyGame).WinGame();
+			LateDestroy();
+		}
+
+		public void LoseGame()
+		{
+			(parent as MyGame).LoseGame();
+			LateDestroy();
 		}
 	}
 }

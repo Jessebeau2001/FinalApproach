@@ -10,22 +10,22 @@ namespace GXPEngine
 
         public Vec2 position;
 
-        HUDElement listTop;
-        HUDElement[] listItem;
-        HUDElement listBottom;
+        UIElement listTop;
+        UIElement[] listItem;
+        UIElement listBottom;
 
         Sprite[] checkMarks;
 
         public ShopList(Pickup[] itemList)
         {
-            listTop = new HUDElement(0, 0, "textures/alphaListTop.png");
+            listTop = new UIElement(0, 0, "textures/alphaListTop.png");
             AddChild(listTop);
 
-            listItem = new HUDElement[itemList.Length];
+            listItem = new UIElement[itemList.Length];
             checkMarks = new Sprite[itemList.Length];
             for (int i = 0; i < listItem.Length; i++)
             {
-                listItem[i] = new HUDElement(0, 0, "textures/alphaListSection.png", itemList[i].itemName);
+                listItem[i] = new UIElement(0, 0, "textures/alphaListSection.png", itemList[i].itemName);
                 listItem[i].y += listTop.height + (listItem[0].height * i);
                 AddChild(listItem[i]);
                 
@@ -35,7 +35,7 @@ namespace GXPEngine
                 checkMarks[i].visible = false;
             }
 
-            listBottom = new HUDElement(0, listTop.height + (listItem[0].height * listItem.Length), "textures/alphaListBottom.png");
+            listBottom = new UIElement(0, listTop.height + (listItem[0].height * listItem.Length), "textures/alphaListBottom.png");
             AddChild(listBottom);
 
             _width = listTop.width;

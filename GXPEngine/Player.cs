@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace GXPEngine
 {
@@ -30,12 +31,16 @@ namespace GXPEngine
 		AnimationSprite playerSprite = new AnimationSprite("textures/notAnimalCrossing.png", 3, 1, addCollider: false);
 		HUDOverlay playerHUD;
 
-		public Player(float x, float y, Pickup[] itemList, HUDOverlay playerHUD, bool showBounds = false) : base(100, 20)
+		int frame = 0; //For some reason when loading via menu player instantly collides with NPC soo hardcoded this weird bs -Jesse
+
+		public Player(float x, float y, Pickup[] itemList, HUDOverlay playerHUD, Stage stage, bool showBounds = false) : base(100, 20)
 		{
 			this.itemList = itemList;
 
 			_position.x = x;
 			_position.y = y;
+			x = _position.x;
+			y = _position.y;
 
 			playerSprite.SetOrigin(0, playerSprite.height);
 			scaleFactor = (width * 1f) / (playerSprite.width * 1f);
@@ -80,12 +85,13 @@ namespace GXPEngine
 				_position = prevPos;
 
 			prevPos = _position;
+			frame++;
 		}
 
 		void OnCollision(GameObject other)
 		{
 			Console.WriteLine("Collided with GameObject: " + other.name);
-
+			if (frame < 10) return; //THIS IF FUCKING BSBSBSBSBSBSBSB
 			if (other is Pickup) {
 				//inventory.PickUp((other as Pickup).GetItemName());
 				playerHUD.shopList.checkItem((other as Pickup).itemIndex);
@@ -95,16 +101,13 @@ namespace GXPEngine
 
 			if (other is NPC)
 			{
-				LateDestroy();
+				(parent as Stage).LoseGame();
 			}
 
 			if (other is EasyDraw && other.name == "WinBox")
 			{
-				foreach (Pickup item in itemList)
-					if (item.isPickedUp == false)
-						return;
-					else
-						LateDestroy();
+				if (itemList.All(_itemList => _itemList.isPickedUp))
+					(parent as Stage).WinGame();
 			}
 
 			var ColInfo = collider.GetCollisionInfo(other.collider);
@@ -132,9 +135,6 @@ namespace GXPEngine
 				force.x += 1;
 				SetState(">");
 			}
-
-			//if (Input.GetKeyDown(Key.SPACE))
-			//	Console.WriteLine(inventory);
 
 			force.Normalize();
 			force *= _speed;
